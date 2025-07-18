@@ -175,15 +175,32 @@
       }
     }
 
-    /* Estados iniciales para animaciones */
-    .sidebar h2,
-    .role,
-    .sidebar li,
-    main,
-    #about h3,
-    #about p {
-      opacity: 0;
+    /* Grid de información */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+      animation: fadeInUp 0.8s ease 1.4s both;
     }
+
+    .info-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      animation: cardSlideIn 0.6s ease calc(1.6s + var(--card-delay)) both;
+    }
+
+    .info-card:nth-child(1) { --card-delay: 0s; }
+    .info-card:nth-child(2) { --card-delay: 0.1s; }
+    .info-card:nth-child(3) { --card-delay: 0.2s; }
+    .info-card:nth-child(4) { --card-delay: 0.3s; }
+    .info-card:nth-child(5) { --card-delay: 0.4s; }
+    .info-card:nth-child(6) { --card-delay: 0.5
   </style>
 </head>
 <body>
@@ -203,6 +220,73 @@
     <section id="about">
       <h3>Sobre mí</h3>
       <p>Soy Francisco Chávez González, estudiante de Ingeniería en Electrónica en la Universidad Autónoma de Aguascalientes. Me especializo en sistemas embebidos, robótica y diseño de PCBs, siempre buscando crear soluciones innovadoras que combinen teoría y práctica en el fascinante mundo de la electrónica.</p>
+      
+      <div class="info-grid">
+        <!-- Educación -->
+        <div class="info-card education">
+          <div class="card-icon">🎓</div>
+          <h4>Educación</h4>
+          <p><strong>Ingeniería en Electrónica</strong></p>
+          <p>Universidad Autónoma de Aguascalientes</p>
+          <p class="year">2021 - Presente</p>
+        </div>
+
+        <!-- Especialidades -->
+        <div class="info-card specialties">
+          <div class="card-icon">⚡</div>
+          <h4>Especialidades</h4>
+          <div class="skills-list">
+            <span class="skill-tag">Sistemas Embebidos</span>
+            <span class="skill-tag">Robótica</span>
+            <span class="skill-tag">Diseño PCB</span>
+            <span class="skill-tag">Arduino/ESP32</span>
+            <span class="skill-tag">Microcontroladores</span>
+            <span class="skill-tag">IoT</span>
+          </div>
+        </div>
+
+        <!-- Herramientas -->
+        <div class="info-card tools">
+          <div class="card-icon">🔧</div>
+          <h4>Herramientas</h4>
+          <div class="tools-grid">
+            <span>KiCad</span>
+            <span>Altium Designer</span>
+            <span>MATLAB</span>
+            <span>PlatformIO</span>
+            <span>Git</span>
+            <span>SolidWorks</span>
+          </div>
+        </div>
+
+        <!-- Intereses -->
+        <div class="info-card interests">
+          <div class="card-icon">💡</div>
+          <h4>Áreas de Interés</h4>
+          <ul>
+            <li>Automatización Industrial</li>
+            <li>Inteligencia Artificial Embebida</li>
+            <li>Energías Renovables</li>
+            <li>Robótica Móvil</li>
+          </ul>
+        </div>
+
+        <!-- Objetivos -->
+        <div class="info-card goals">
+          <div class="card-icon">🎯</div>
+          <h4>Objetivos</h4>
+          <p>Desarrollar soluciones tecnológicas que impacten positivamente en la industria mexicana, combinando innovación con sostenibilidad.</p>
+        </div>
+
+        <!-- Datos de contacto rápido -->
+        <div class="info-card contact-quick">
+          <div class="card-icon">📧</div>
+          <h4>Contacto</h4>
+          <p>📍 Aguascalientes, México</p>
+          <p>🎓 Estudiante de Ing. Electrónica</p>
+          <p>💼 Disponible para prácticas profesionales</p>
+        </div>
+      </div>
     </section>
   </main>
 
