@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Neumorphism</title>
+  <title>Portafolio - Francisco Chávez González</title>
 
   <!-- Font Awesome para los iconos -->
   <link
@@ -19,7 +19,7 @@
       --bg: #2b2e33;
       --shadow-light: #3c3f43;
       --shadow-dark:  #212225;
-      --accent:       #ed1c24;
+      --accent:       #0071C5; /* Azul Intel */
       --text:         #eeeeee;
       --radius:       16px;
       --spread:       8px;
@@ -34,60 +34,174 @@
       background: var(--bg);
       color: var(--text);
       font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
+      line-height: 1.6;
     }
 
-    .card {
+    header {
+      text-align: center;
+      padding: 4rem 1rem 2rem;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p.subtitle {
+      font-size: 1.2rem;
+      color: var(--accent);
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color .3s;
+    }
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    section {
       background: var(--bg);
       border-radius: var(--radius);
-      padding: 2rem 3rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
       box-shadow:
         var(--spread) var(--spread) calc(var(--spread) * 2) var(--shadow-dark),
        -var(--spread) -var(--spread) calc(var(--spread) * 2) var(--shadow-light);
     }
 
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 1.5rem;
-    }
-    h1 .accent {
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
       color: var(--accent);
     }
 
-    .icons a {
+    .icons-social a {
       margin: 0 0.75rem;
-      font-size: 2rem;
+      font-size: 1.8rem;
       color: var(--text);
-      text-decoration: none;
       transition: color .3s;
     }
-    .icons a:hover {
+    .icons-social a:hover {
       color: var(--accent);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .card-item {
+      padding: 1rem;
+      border-radius: var(--radius);
+      background: var(--bg);
+      box-shadow:
+        4px 4px 8px var(--shadow-dark),
+       -4px -4px 8px var(--shadow-light);
+      transition: transform .3s;
+    }
+    .card-item:hover {
+      transform: translateY(-4px);
+    }
+
+    .card-item h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .card-item p {
+      font-size: 0.95rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: #888;
     }
   </style>
 </head>
-
 <body>
-  <div class="card">
-    <h1>Hi, I’m <span class="accent">Neumorphism</span></h1>
-    <div class="icons">
-      <a href="https://github.com/tu-usuario" target="_blank" aria-label="GitHub">
-        <i class="fab fa-github"></i>
-      </a>
-      <a href="https://twitter.com/tu-usuario" target="_blank" aria-label="Twitter">
-        <i class="fab fa-twitter"></i>
-      </a>
-      <a href="https://linkedin.com/in/tu-usuario" target="_blank" aria-label="LinkedIn">
-        <i class="fab fa-linkedin"></i>
-      </a>
-      <a href="mailto:tucorreo@ejemplo.com" aria-label="Email">
-        <i class="fas fa-envelope"></i>
-      </a>
-    </div>
+  <header>
+    <h1>Francisco Chávez González</h1>
+    <p class="subtitle">Ingeniería en Electrónica - Universidad Autónoma de Aguascalientes</p>
+    <nav>
+      <a href="#about">Sobre mí</a>
+      <a href="#projects">Proyectos</a>
+      <a href="#reports">Reportes</a>
+      <a href="#code">Códigos</a>
+      <a href="#contact">Contacto</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <section id="about">
+      <h2>Sobre mí</h2>
+      <p>Soy estudiante de Ingeniería en Electrónica en la Universidad Autónoma de Aguascalientes. Me apasiona el diseño y desarrollo de sistemas electrónicos, la programación de microcontroladores y la robótica. Aquí comparto mis proyectos académicos y personales.</p>
+    </section>
+
+    <section id="projects">
+      <h2>Proyectos</h2>
+      <div class="grid">
+        <!-- Ejemplo de proyecto -->
+        <div class="card-item">
+          <h3>Robot Seguidor de Línea</h3>
+          <p>Implementé un robot autónomo capaz de seguir líneas usando sensores IR y microcontrolador Arduino.</p>
+        </div>
+        <div class="card-item">
+          <h3>Medidor de Temperatura</h3>
+          <p>Desarrollé un sistema digital para medir temperatura con sensor LM35 y mostrador LCD.</p>
+        </div>
+        <!-- Añade más tarjetas aquí -->
+      </div>
+    </section>
+
+    <section id="reports">
+      <h2>Reportes</h2>
+      <ul>
+        <li><a href="#">Reporte: Diseño de Amplificadores de Audio (PDF)</a></li>
+        <li><a href="#">Reporte: Comunicaciones UART con PIC (PDF)</a></li>
+        <!-- Más enlaces a reportes -->
+      </ul>
+    </section>
+
+    <section id="code">
+      <h2>Códigos</h2>
+      <ul>
+        <li><a href="#">GitHub: Repositorio de Proyectos Arduino</a></li>
+        <li><a href="#">GitHub: Algoritmos de Control PID</a></li>
+        <!-- Más enlaces a repositorios -->
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>Contacto</h2>
+      <div class="icons-social">
+        <a href="https://github.com/tu-usuario" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/tu-usuario" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:francisco.ejemplo@correo.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      </div>
+    </section>
   </div>
+
+  <footer>
+    &copy; 2025 Francisco Chávez González. Todos los derechos reservados.
+  </footer>
 </body>
 </html>
