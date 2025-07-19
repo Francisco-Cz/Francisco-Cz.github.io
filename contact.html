@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contacto – Francisco Chávez González</title>
   <link rel="stylesheet" href="assets/css/style.css">
+  <!-- AOS para animaciones al hacer scroll -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
 <body>
-  <nav class="sidebar">
+  <!-- Sidebar de navegación -->
+  <nav class="sidebar" data-aos="fade-right">
     <img src="profile.jpeg" class="profile" alt="Foto de perfil de Francisco">
     <h2>Francisco Chávez</h2>
     <p class="role">Ingeniería Electrónica</p>
@@ -20,16 +23,61 @@
     </ul>
   </nav>
 
-  <main>
-    <section id="contact">
+  <main data-aos="fade-up">
+    <!-- Encabezado de sección -->
+    <section id="contact-overview">
       <h3>Contacto</h3>
-      <p>Conéctate conmigo:</p>
-      <p>
-        <a href="https://github.com/tu-usuario" target="_blank"><i class="fab fa-github fa-lg" style="margin-right:1rem;"></i></a>
-        <a href="https://linkedin.com/in/tu-usuario" target="_blank"><i class="fab fa-linkedin fa-lg" style="margin-right:1rem;"></i></a>
-        <a href="mailto:francisco.ejemplo@correo.com"><i class="fas fa-envelope fa-lg"></i></a>
-      </p>
+      <p>¿Tienes alguna pregunta o proyecto? ¡Hablemos!</p>
+
+      <!-- Iconos SVG de redes sociales -->
+      <div class="social-links">
+        <a href="https://github.com/tu-usuario" target="_blank" rel="noopener">
+          <img src="assets/icons/github.svg" alt="GitHub">
+        </a>
+        <a href="https://linkedin.com/in/tu-usuario" target="_blank" rel="noopener">
+          <img src="assets/icons/linkedin.svg" alt="LinkedIn">
+        </a>
+        <a href="mailto:francisco.ejemplo@correo.com">
+          <img src="assets/icons/email.svg" alt="Email">
+        </a>
+      </div>
+
+      <!-- Botón para descargar CV -->
+      <a href="assets/Francisco_Chavez_CV.pdf" download class="btn-cv">Descargar mi CV</a>
+    </section>
+
+    <!-- Formulario de contacto -->
+    <section id="contact-form" data-aos="fade-up" data-aos-delay="200">
+      <h4>Envíame un mensaje</h4>
+      <form action="#" method="POST" class="contact-form">
+        <label for="name">Nombre</label>
+        <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" placeholder="tu@correo.com" required>
+
+        <label for="message">Mensaje</label>
+        <textarea id="message" name="message" placeholder="¿En qué puedo ayudarte?" rows="5" required></textarea>
+
+        <button type="submit">Enviar</button>
+      </form>
+    </section>
+
+    <!-- Mapa / zona horaria -->
+    <section id="location" data-aos="fade-up" data-aos-delay="400">
+      <h4>¿Dónde estoy?</h4>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18…"
+        width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
+      </iframe>
+      <p>📍 Ciudad de México (UTC–06:00)</p>
     </section>
   </main>
+
+  <!-- Scripts de AOS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: true });
+  </script>
 </body>
 </html>
