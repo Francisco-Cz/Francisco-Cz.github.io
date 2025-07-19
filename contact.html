@@ -5,12 +5,318 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contacto – Francisco Chávez González</title>
   <link rel="stylesheet" href="assets/css/style.css">
-  <!-- AOS para animaciones al hacer scroll -->
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Mejoras sutiles manteniendo la estructura original */
+    .sidebar {
+      transition: all 0.3s ease;
+    }
+
+    .profile {
+      transition: all 0.3s ease;
+      border-radius: 50%;
+    }
+
+    .profile:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar h2 {
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+
+    .role {
+      animation: fadeInUp 0.8s ease 0.4s both;
+    }
+
+    .sidebar ul {
+      list-style: none;
+    }
+
+    .sidebar li {
+      animation: fadeInLeft 0.6s ease calc(0.6s + var(--delay)) both;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar li:nth-child(1) { --delay: 0s; }
+    .sidebar li:nth-child(2) { --delay: 0.1s; }
+    .sidebar li:nth-child(3) { --delay: 0.2s; }
+    .sidebar li:nth-child(4) { --delay: 0.3s; }
+    .sidebar li:nth-child(5) { --delay: 0.4s; }
+
+    .sidebar a {
+      transition: all 0.3s ease;
+      display: block;
+      text-decoration: none;
+      padding: 8px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sidebar a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: currentColor;
+      transition: width 0.3s ease;
+    }
+
+    .sidebar a:hover::before {
+      width: 100%;
+    }
+
+    .sidebar a:hover {
+      transform: translateX(3px);
+    }
+
+    .sidebar a.active {
+      font-weight: 600;
+    }
+
+    main {
+      animation: slideInRight 0.8s ease 0.8s both;
+    }
+
+    #contact {
+      transition: all 0.3s ease;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    #contact:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    #contact h3 {
+      animation: fadeIn 1s ease 1s both;
+      position: relative;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    #contact h3::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: currentColor;
+      animation: expandWidth 1s ease 1.5s both;
+    }
+
+    .contact-intro {
+      text-align: center;
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.8s ease 1.2s both;
+    }
+
+    /* Tarjetas de contacto */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.8s ease 1.4s both;
+    }
+
+    .contact-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      animation: cardSlideIn 0.6s ease calc(1.6s + var(--card-delay)) both;
+    }
+
+    .contact-card:nth-child(1) { --card-delay: 0s; }
+    .contact-card:nth-child(2) { --card-delay: 0.1s; }
+    .contact-card:nth-child(3) { --card-delay: 0.2s; }
+    .contact-card:nth-child(4) { --card-delay: 0.3s; }
+
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .contact-card i {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+      transition: all 0.3s ease;
+    }
+
+    .contact-card:hover i {
+      transform: scale(1.1);
+    }
+
+    .contact-card h4 {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .contact-card p {
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .contact-card a {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 25px;
+      text-decoration: none;
+      color: inherit;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-card a:hover {
+      background: rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
+    }
+
+    /* Colores específicos para cada red social */
+    .github-card:hover i { color: #333; }
+    .linkedin-card:hover i { color: #0077b5; }
+    .email-card:hover i { color: #ea4335; }
+    .whatsapp-card:hover i { color: #25d366; }
+
+    /* Mensaje final */
+    .contact-footer {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      animation: fadeIn 0.8s ease 2s both;
+    }
+
+    .contact-footer h4 {
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .contact-footer p {
+      margin-bottom: 0.5rem;
+      opacity: 0.9;
+    }
+
+    /* Animaciones */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      0% {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes expandWidth {
+      0% { width: 0; }
+      100% { width: 60px; }
+    }
+
+    @keyframes cardSlideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Mejora de tipografía */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    /* Scroll suave */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Mejoras responsive */
+    @media (max-width: 768px) {
+      .sidebar {
+        padding: 1rem;
+      }
+      
+      main {
+        padding: 1rem;
+      }
+      
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .contact-card {
+        padding: 1.2rem;
+      }
+    }
+
+    /* Estados iniciales para animaciones */
+    .sidebar h2,
+    .role,
+    .sidebar li,
+    main,
+    #contact h3,
+    .contact-intro,
+    .contact-grid,
+    .contact-card,
+    .contact-footer {
+      opacity: 0;
+    }
+  </style>
 </head>
 <body>
-  <!-- Sidebar de navegación -->
-  <nav class="sidebar" data-aos="fade-right">
+  <nav class="sidebar">
     <img src="profile.jpeg" class="profile" alt="Foto de perfil de Francisco">
     <h2>Francisco Chávez</h2>
     <p class="role">Ingeniería Electrónica</p>
@@ -19,65 +325,90 @@
       <li><a href="projects.html">Proyectos</a></li>
       <li><a href="reports.html">Reportes</a></li>
       <li><a href="code.html">Códigos</a></li>
-      <li><a href="contact.html">Contacto</a></li>
+      <li><a href="contact.html" class="active">Contacto</a></li>
     </ul>
   </nav>
-
-  <main data-aos="fade-up">
-    <!-- Encabezado de sección -->
-    <section id="contact-overview">
+  
+  <main>
+    <section id="contact">
       <h3>Contacto</h3>
-      <p>¿Tienes alguna pregunta o proyecto? ¡Hablemos!</p>
-
-      <!-- Iconos SVG de redes sociales -->
-      <div class="social-links">
-        <a href="https://github.com/tu-usuario" target="_blank" rel="noopener">
-          <img src="assets/icons/github.svg" alt="GitHub">
-        </a>
-        <a href="https://linkedin.com/in/tu-usuario" target="_blank" rel="noopener">
-          <img src="assets/icons/linkedin.svg" alt="LinkedIn">
-        </a>
-        <a href="mailto:francisco.ejemplo@correo.com">
-          <img src="assets/icons/email.svg" alt="Email">
-        </a>
+      <div class="contact-intro">
+        <p>¡Conectemos! Estoy siempre abierto a nuevas oportunidades, colaboraciones y conversaciones sobre tecnología e innovación.</p>
       </div>
 
-      <!-- Botón para descargar CV -->
-      <a href="assets/Francisco_Chavez_CV.pdf" download class="btn-cv">Descargar mi CV</a>
-    </section>
+      <div class="contact-grid">
+        <div class="contact-card github-card">
+          <i class="fab fa-github"></i>
+          <h4>GitHub</h4>
+          <p>Explora mis proyectos y código</p>
+          <a href="https://github.com/tu-usuario" target="_blank">Ver Repositorios</a>
+        </div>
 
-    <!-- Formulario de contacto -->
-    <section id="contact-form" data-aos="fade-up" data-aos-delay="200">
-      <h4>Envíame un mensaje</h4>
-      <form action="#" method="POST" class="contact-form">
-        <label for="name">Nombre</label>
-        <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+        <div class="contact-card linkedin-card">
+          <i class="fab fa-linkedin"></i>
+          <h4>LinkedIn</h4>
+          <p>Conecta profesionalmente</p>
+          <a href="https://linkedin.com/in/tu-usuario" target="_blank">Conectar</a>
+        </div>
 
-        <label for="email">Correo electrónico</label>
-        <input type="email" id="email" name="email" placeholder="tu@correo.com" required>
+        <div class="contact-card email-card">
+          <i class="fas fa-envelope"></i>
+          <h4>Email</h4>
+          <p>Contacto directo y profesional</p>
+          <a href="mailto:francisco.ejemplo@correo.com">Enviar Email</a>
+        </div>
 
-        <label for="message">Mensaje</label>
-        <textarea id="message" name="message" placeholder="¿En qué puedo ayudarte?" rows="5" required></textarea>
+        <div class="contact-card whatsapp-card">
+          <i class="fab fa-whatsapp"></i>
+          <h4>WhatsApp</h4>
+          <p>Conversación rápida</p>
+          <a href="https://wa.me/524491234567" target="_blank">Mensaje</a>
+        </div>
+      </div>
 
-        <button type="submit">Enviar</button>
-      </form>
-    </section>
-
-    <!-- Mapa / zona horaria -->
-    <section id="location" data-aos="fade-up" data-aos-delay="400">
-      <h4>¿Dónde estoy?</h4>
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18…"
-        width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
-      </iframe>
-      <p>📍 Ciudad de México (UTC–06:00)</p>
+      <div class="contact-footer">
+        <h4>¿Tienes un proyecto en mente?</h4>
+        <p>📍 Aguascalientes, México</p>
+        <p>🎓 Disponible para prácticas profesionales y proyectos colaborativos</p>
+        <p>⚡ Especializado en sistemas embebidos y robótica</p>
+      </div>
     </section>
   </main>
 
-  <!-- Scripts de AOS -->
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>
-    AOS.init({ duration: 800, once: true });
+    // Smooth loading animations
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add subtle loading effect
+      document.body.style.opacity = '0';
+      document.body.style.transition = 'opacity 0.5s ease';
+      
+      setTimeout(() => {
+        document.body.style.opacity = '1';
+      }, 100);
+    });
+
+    // Add smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Copy email to clipboard functionality
+    const emailLinks = document.querySelectorAll('a[href^="mailto:"]');
+    emailLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        const email = this.href.replace('mailto:', '');
+        navigator.clipboard.writeText(email).then(() => {
+          // Optional: Show a toast notification
+          console.log('Email copiado: ' + email);
+        });
+      });
+    });
   </script>
 </body>
 </html>
