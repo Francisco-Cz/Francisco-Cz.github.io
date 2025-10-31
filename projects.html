@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Proyectos – Francisco Chávez González</title>
   <link rel="stylesheet" href="assets/css/style.css">
+  
+  <style>
+    .card-link {
+      text-decoration: none;
+      color: inherit; /* Hereda el color del texto normal */
+    }
+  </style>
 </head>
 <body>
   <nav class="sidebar">
@@ -24,22 +31,28 @@
     <section id="projects">
       <h3>Proyectos Destacados</h3>
       <div class="grid">
-        <div class="card">
-          <img src="assets/images/project1.jpg" alt="Robot seguidor de línea">
-          <div class="card-content">
-            <h4>Robot Seguidor de Línea</h4>
-            <p>Arduino + sensores IR para navegación autónoma.</p>
+
+        <a href="assets/pdf/carro_seguidor.pdf" target="_blank" class="card-link">
+          <div class="card">
+            <img src="assets/images/carro_seguidor.jpg" alt="Robot seguidor de línea">
+            <div class="card-content">
+              <h4>Carro Seguidor de Línea</h4>
+              <p>Robot con Arduino y sensores IR para navegación autónoma.</p>
+            </div>
           </div>
-        </div>
-        <div class="card">
-          <img src="assets/images/project2.jpg" alt="Medidor de Temperatura">
-          <div class="card-content">
-            <h4>Medidor de Temperatura</h4>
-            <p>Sistema con sensor LM35 y pantalla LCD.</p>
+        </a>
+
+        <a href="assets/pdf/amplificadores.pdf" target="_blank" class="card-link">
+          <div class="card">
+            <img src="assets/images/amplificador.jpg" alt="Amplificador tipo D">
+            <div class="card-content">
+              <h4>Amplificador Tipo D</h4>
+              <p>Diseño y construcción de un amplificador de audio clase D.</p>
+            </div>
           </div>
+        </a>
+        
         </div>
-        <!-- Agrega aquí más tarjetas de proyectos -->
-      </div>
     </section>
   </main>
 </body>
