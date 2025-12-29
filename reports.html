@@ -4,13 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reportes – Francisco Chávez González</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-</head>
+  <link rel="stylesheet" href="css/style.css"> </head>
 <body>
   <nav class="sidebar">
-    <img src="profile.jpeg" class="profile" alt="Foto de perfil de Francisco">
+    <img src="images/profile.jpg" class="profile" alt="Foto de perfil de Francisco">
     <h2>Francisco Chávez</h2>
-    <p class="role">Ingeniería Electrónica</p>
+    <p class="role">Ingeniería Electrónica - UAA</p>
     <ul>
       <li><a href="about.html">Sobre mí</a></li>
       <li><a href="projects.html">Proyectos</a></li>
@@ -22,12 +21,51 @@
 
   <main>
     <section id="reports">
-      <h3>Reportes</h3>
-      <ul>
-        <li><a href="assets/reports/Amplificadores_Audio.pdf" target="_blank">Diseño de Amplificadores de Audio (PDF)</a></li>
-        <li><a href="assets/reports/UART_con_PIC.pdf" target="_blank">Comunicaciones UART con PIC (PDF)</a></li>
-        <!-- Agrega más enlaces a tus reportes aquí -->
-      </ul>
+      <h3>Reportes y Documentación Técnica</h3>
+      
+      <div class="grid">
+        
+        <div class="card">
+          <img src="images/amplificadores.jpg" alt="Amplificadores">
+          <div class="card-content">
+            <h4>Amplificadores de Audio</h4>
+            <p>Diseño y simulación de etapas de potencia clase AB.</p>
+            <br>
+            <a href="pdf/Amplificadores_Audio.pdf" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: bold;">Ver PDF →</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="images/pid_control.jpg" alt="Control PID">
+          <div class="card-content">
+            <h4>Controlador PID Analógico</h4>
+            <p>Implementación de un sistema Ball and Scale con amplificadores operacionales.</p>
+            <br>
+            <a href="pdf/Control_PID_Ball_Scale.pdf" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: bold;">Ver PDF →</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="images/uart_pic.jpg" alt="UART PIC">
+          <div class="card-content">
+            <h4>UART con PIC</h4>
+            <p>Protocolos de comunicación serial aplicados a microcontroladores.</p>
+            <br>
+            <a href="pdf/UART_con_PIC.pdf" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: bold;">Ver PDF →</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="images/vlsi_design.jpg" alt="VLSI">
+          <div class="card-content">
+            <h4>Introducción a VLSI</h4>
+            <p>Investigación sobre tendencias en diseño de semiconductores.</p>
+            <br>
+            <a href="pdf/Investigacion_VLSI.pdf" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: bold;">Ver PDF →</a>
+          </div>
+        </div>
+
+      </div>
     </section>
   </main>
 </body>
