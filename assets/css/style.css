@@ -202,4 +202,108 @@ footer {
   margin-top: 1rem;
   padding-left: 1.2rem;
 }
+/* - ----------------------------------------------------------------------*/
+/* ===== Tarjetas verticales tipo "anime-card" ===== */
+.reports-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Tarjeta vertical (enlace entero clicable) */
+.report-card-vert {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.08));
+  color: var(--text);
+  text-decoration: none;
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+  box-shadow:
+    4px 4px 10px rgba(0,0,0,0.35),
+   -4px -4px 8px rgba(255,255,255,0.02);
+}
+
+/* Miniatura arriba (rectangular) */
+.card-thumb-wrap {
+  width: 100%;
+  aspect-ratio: 16/9; /* mantiene proporción */
+  overflow: hidden;
+  background: #111; /* color de fondo si la imagen no carga */
+}
+.card-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+/* Contenido de la tarjeta */
+.card-body {
+  padding: 0.8rem 0.9rem;
+}
+.card-title {
+  margin: 0 0 0.4rem 0;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+.card-desc {
+  margin: 0 0 0.6rem 0;
+  font-size: 0.9rem;
+  color: #d7d7d7;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Tags/etiquetas pequeñas */
+.card-tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.tag {
+  font-size: 0.75rem;
+  padding: 0.18rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.04);
+  color: #cfdfe9; /* tono suave */
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+/* Hover y foco */
+.report-card-vert:hover,
+.report-card-vert:focus {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow:
+    12px 12px 30px rgba(0,0,0,0.5),
+   -6px -6px 12px rgba(255,255,255,0.02);
+  outline: none;
+}
+.report-card-vert:hover .card-thumb,
+.report-card-vert:focus .card-thumb {
+  transform: scale(1.06);
+}
+
+/* Responsive: menos columnas en móvil */
+@media (max-width: 720px) {
+  .reports-grid {
+    grid-template-columns: 1fr;
+  }
+  .card-desc { -webkit-line-clamp: 3; } /* permitir 3 líneas en móvil */
+}
+
+/* Evitar conflicto con la tarjeta horizontal previa */
+.report-card { /* si usabas .report-card para otra cosa, no afecta */
+  /* no modificamos */
+}
+
+
+
 
