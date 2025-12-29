@@ -13,55 +13,68 @@
   <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
-
 <body>
-
   <nav class="sidebar">
-
-    <img src="profile.jpeg" class="profile" alt="Foto de perfil de Francisco">
-
+    <img src="images/profile.jpg" class="profile" alt="Foto de perfil de Francisco">
     <h2>Francisco Chávez</h2>
-
-    <p class="role">Ingeniería Electrónica</p>
-
+    <p class="role">Ingeniería Electrónica - UAA</p>
     <ul>
-
       <li><a href="about.html">Sobre mí</a></li>
-
       <li><a href="projects.html">Proyectos</a></li>
-
       <li><a href="reports.html">Reportes</a></li>
-
       <li><a href="code.html">Códigos</a></li>
-
       <li><a href="contact.html">Contacto</a></li>
-
     </ul>
-
   </nav>
 
-
-
   <main>
-
     <section id="reports">
+      <h3>Reportes y Documentación Técnica</h3>
+      
+      <div class="grid">
+        
+        <div class="card">
+          <img src="images/amplificadores.jpg" alt="Amplificadores">
+          <div class="card-content">
+            <h4>Amplificadores de Audio</h4>
+            <p>Diseño y simulación de etapas de potencia clase AB.</p>
+            <br>
+            <a href="pdf/Amplificadores_Audio.pdf" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: bold;">Ver PDF →</a>
+          </div>
+        </div>
 
-      <h3>Reportes</h3>
+        <div class="card">
+          <img src="images/pid_control.jpg" alt="Control PID">
+          <div class="card-content">
+            <h4>Controlador PID Analógico</h4>
+            <p>Implementación de un sistema Ball and Scale con amplificadores operacionales.</p>
+            <br>
+            <a href="pdf/Control_PID_Ball_Scale.pdf" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: bold;">Ver PDF →</a>
+          </div>
+        </div>
 
-      <ul>
+        <div class="card">
+          <img src="images/uart_pic.jpg" alt="UART PIC">
+          <div class="card-content">
+            <h4>UART con PIC</h4>
+            <p>Protocolos de comunicación serial aplicados a microcontroladores.</p>
+            <br>
+            <a href="pdf/UART_con_PIC.pdf" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: bold;">Ver PDF →</a>
+          </div>
+        </div>
 
-        <li><a href="assets/reports/Amplificadores_Audio.pdf" target="_blank">Diseño de Amplificadores de Audio (PDF)</a></li>
+        <div class="card">
+          <img src="images/vlsi_design.jpg" alt="VLSI">
+          <div class="card-content">
+            <h4>Introducción a VLSI</h4>
+            <p>Investigación sobre tendencias en diseño de semiconductores.</p>
+            <br>
+            <a href="pdf/Investigacion_VLSI.pdf" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: bold;">Ver PDF →</a>
+          </div>
+        </div>
 
-        <li><a href="assets/reports/UART_con_PIC.pdf" target="_blank">Comunicaciones UART con PIC (PDF)</a></li>
-
-        <!-- Agrega más enlaces a tus reportes aquí -->
-
-      </ul>
-
+      </div>
     </section>
-
   </main>
-
 </body>
-
 </html>
