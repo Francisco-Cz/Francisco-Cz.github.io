@@ -126,3 +126,80 @@ footer {
   color: #666;
   padding: 1rem;
 }
+
+
+/* ===== Report cards (reports.html) ===== */
+.report-card {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background: var(--highlight);
+  color: var(--text);
+  text-decoration: none;
+  padding: 0.8rem;
+  border-radius: var(--radius);
+  transition: transform var(--transition), box-shadow var(--transition);
+  margin-bottom: 1rem;
+  box-shadow:
+    4px 4px 10px rgba(0,0,0,0.35),
+   -4px -4px 8px rgba(255,255,255,0.03);
+}
+
+.report-card:hover,
+.report-card:focus {
+  transform: translateY(-6px);
+  box-shadow:
+    8px 8px 20px rgba(0,0,0,0.45),
+   -6px -6px 12px rgba(255,255,255,0.02);
+  outline: none;
+}
+
+/* Miniatura al margen (rectangular y más pequeña) */
+.report-thumb {
+  width: 160px;
+  height: 95px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+  box-shadow: inset 0 0 12px rgba(0,0,0,0.25);
+}
+
+/* Contenido de la tarjeta */
+.report-body { 
+  min-width: 0; /* para que clamp funcione */
+}
+.report-title {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+.report-desc {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #dcdcdc;
+  /* limitar a 2 líneas */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Adaptación responsive: apilar en móvil */
+@media (max-width: 720px) {
+  .report-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .report-thumb {
+    width: 100%;
+    height: 160px;
+  }
+}
+
+/* Un poco de espaciado para la sección */
+#reports ul {
+  margin-top: 1rem;
+  padding-left: 1.2rem;
+}
+
