@@ -1,128 +1,202 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistemas Digitales – Francisco Chávez González</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sistemas Digitales — Francisco Chávez González</title>
   <link rel="stylesheet" href="assets/css/style.css">
   <style>
-    /* Estilos locales del artículo/editor (pegar aquí evita tocar style.css) */
-    .page-wrap { padding: 2rem; }
-    .report-article {
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.03));
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 4px 4px 12px rgba(0,0,0,0.25);
-      margin-bottom: 1.2rem;
+    /* ---------- Overrides / estilos locales ---------- */
+    /* Ocultar la sidebar (si existe en el CSS global) */
+    nav.sidebar { display: none !important; }
+
+    /* Layout a pantalla completa */
+    :root{
+      --bg: #0f0f10;
+      --panel: #141517;
+      --muted: #bdbdbd;
+      --accent: #0071C5;
+      --radius: 12px;
+      --max-width: 1200px;
     }
-    .report-header { display:flex; gap:1rem; align-items:flex-start; flex-wrap:wrap; margin-bottom:1rem; }
-    .report-cover { width:360px; max-width:100%; aspect-ratio:16/9; overflow:hidden; border-radius:10px; flex-shrink:0; }
-    .report-cover img { width:100%; height:100%; object-fit:cover; display:block; }
-    .editor-title {
-      width:100%;
-      font-size:1.2rem;
-      margin:0 0 0.5rem 0;
-      padding:0.4rem 0.6rem;
-      background:transparent;
-      border: none;
-      color:var(--text);
-      border-radius:8px;
+    html,body { height: 100%; margin: 0; background: var(--bg); color: #eee; font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif; -webkit-font-smoothing:antialiased; }
+    /* botón volver fijo */
+    .back-fixed {
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      z-index: 1200;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--text, #fff);
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.04);
+      padding: 0.45rem 0.7rem;
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
     }
-    .editor-toolbar { display:flex; gap:0.5rem; margin-bottom:0.6rem; flex-wrap:wrap; }
-    .editor-toolbar button, .editor-actions button {
-      padding:0.35rem 0.6rem;
-      border-radius:8px;
-      border:1px solid rgba(255,255,255,0.04);
-      background:rgba(255,255,255,0.02);
-      color:var(--text);
-      cursor:pointer;
+    .back-fixed svg { width:18px; height:18px; display:block; }
+
+    main.full {
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 48px 24px;
     }
-    .editor-area {
-      min-height: 380px;
-      border-radius:10px;
-      padding:0.9rem;
-      background: rgba(0,0,0,0.03);
-      outline: none;
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));
+      border-radius: var(--radius);
+      padding: 36px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      box-sizing: border-box;
+    }
+
+    /* Títulos grandes, legibles */
+    .eyebrow { color: var(--muted); font-size: 0.95rem; margin-bottom: 6px; }
+    h1 {
+      font-size: clamp(26px, 4.2vw, 44px);
+      margin: 0 0 8px 0;
+      line-height: 1.02;
+      letter-spacing: -0.5px;
+    }
+    .meta { color: var(--muted); margin-bottom: 18px; font-size: 0.95rem; }
+
+    /* Encabezado con imagen cover (opcional) */
+    .cover {
+      width: 100%;
+      aspect-ratio: 16/6;
+      overflow: hidden;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      background: linear-gradient(90deg, rgba(0,113,197,0.12), rgba(0,0,0,0.06));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .cover img { width:100%; height:100%; object-fit:cover; display:block; }
+
+    /* Contenido */
+    .content {
+      font-size: clamp(16px, 1.6vw, 18px);
+      line-height: 1.65;
+      color: #e9e9e9;
+    }
+    .content h2 { font-size: clamp(20px, 2.6vw, 28px); margin-top: 28px; margin-bottom: 10px; }
+    .content p { margin: 0 0 14px 0; color: #dcdcdc; }
+    .content pre {
+      background: #0b0b0b;
+      padding: 14px;
+      border-radius: 8px;
       overflow:auto;
-      color:var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      font-size: 0.92rem;
+      color: #cfeefb;
     }
-    .editor-actions { display:flex; gap:0.6rem; margin-top:0.8rem; }
-    .btn-primary { background: var(--accent); color:#fff; border:none; padding:0.5rem 0.7rem; border-radius:8px; cursor:pointer; }
-    .back-link {
-      display:inline-block;
-      margin-bottom:0.8rem;
-      text-decoration:none;
-      color:var(--text);
-      font-size:0.95rem;
-      padding:0.35rem 0.6rem;
-      border-radius:8px;
-      border:1px solid rgba(255,255,255,0.03);
-      background: rgba(255,255,255,0.01);
+
+    /* Figuras / imágenes insertables */
+    figure {
+      margin: 18px 0;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0b0b0b;
+      display:block;
     }
-    @media (max-width:720px) {
-      .report-header { flex-direction:column; }
+    figure img { width:100%; height:auto; display:block; object-fit:cover; }
+    figcaption { font-size:0.9rem; color:var(--muted); padding:8px 10px; }
+
+    /* Rejilla de dos columnas para imágenes o secciones técnicas */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items:start;
     }
+    @media (max-width:900px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* Bloques destacables */
+    .note {
+      border-left: 4px solid var(--accent);
+      padding: 10px 14px;
+      background: rgba(0,113,197,0.04);
+      color:#dfeffd;
+      margin: 12px 0;
+      border-radius:6px;
+    }
+
+    /* Footer interno pequeño */
+    .doc-footer { margin-top: 28px; color:var(--muted); font-size:0.9rem; }
+
+    /* Ajustes de accesibilidad: texto claro en contraste */
+    a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
   </style>
 </head>
 <body>
-  <nav class="sidebar">
-    <img src="profile.jpeg" class="profile" alt="Foto de perfil de Francisco">
-    <h2>Francisco Chávez</h2>
-    <p class="role">Ingeniería Electrónica</p>
-    <ul>
-      <li><a href="about.html">Sobre mí</a></li>
-      <li><a href="projects.html">Proyectos</a></li>
-      <li><a href="reports.html">Reportes</a></li>
-      <li><a href="code.html">Códigos</a></li>
-      <li><a href="contact.html">Contacto</a></li>
-    </ul>
-  </nav>
+  <!-- Flecha volver (visible fija, sola) -->
+  <a class="back-fixed" href="reports.html" aria-label="Volver a Reportes">
+    <!-- simple icono flecha -->
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Volver
+  </a>
 
-  <main>
-    <div class="page-wrap">
-      <a class="back-link" href="reports.html">← Volver a Reportes</a>
+  <main class="full" role="main">
+    <div class="container" role="article" aria-labelledby="doc-title">
+      <div class="eyebrow">Reporte técnico</div>
+      <h1 id="doc-title">Sistemas Digitales — Resumen y Fundamentos</h1>
+      <div class="meta">Francisco Chávez — Ingeniería Electrónica · Última actualización: 29/12/2025</div>
 
-      <article class="report-article">
-        <div class="report-header">
-          <div class="report-cover">
-            <img src="assets/images/sistemas-digitales.jpg" alt="Sistemas Digitales — portada">
-          </div>
+      <!-- COVER: si quieres una portada grande, descomenta e inserta la imagen -->
+      <!-- EJEMPLO: pegar aquí tu imagen de portada
+      <div class="cover">
+        <img src="assets/images/mi-portada.jpg" alt="Portada Sistemas Digitales">
+      </div>
+      -->
+      <!-- Si no pegas portada, el siguiente <div class="cover"> vacío sirve como fondo decorativo -->
+      <div class="cover" aria-hidden="true"></div>
 
-          <div style="flex:1; min-width:0;">
-            <input id="doc-title" class="editor-title" value="Sistemas Digitales — Resumen y Fundamentos" placeholder="Título del reporte">
-            <p style="margin:0 0 0.6rem 0; color:#cfcfcf;">
-              Resumen: álgebra de Boole, lógica combinacional y secuencial, FSM, ejemplos en VHDL y consideraciones para FPGA.
-            </p>
+      <div class="content">
+        <h2>Introducción</h2>
+        <p>Este documento agrupa los conceptos centrales de los sistemas digitales: representación binaria, álgebra de Boole, lógica combinacional y secuencial, máquinas de estado finito (FSM) y ejemplos prácticos en VHDL. Está pensado como guía de estudio y referencia rápida para proyectos en FPGA.</p>
 
-            <div class="editor-actions">
-              <button id="btn-edit">Editar</button>
-              <button id="btn-save" class="btn-primary">Guardar</button>
-              <button id="btn-export">Exportar HTML</button>
-            </div>
+        <h2>Lógica combinacional</h2>
+        <p>Componentes habituales: puertas lógicas, sumadores, multiplexores, decodificadores y codificadores. Técnicas de simplificación: mapas de Karnaugh y álgebra booleana.</p>
+
+        <!-- Placeholder para imagen: diagrama combinacional -->
+        <!-- INSERTAR IMAGEN AQUI:
+        <figure>
+          <img src="assets/images/diagrama-combinacional.jpg" alt="Diagrama combinacional - ejemplo">
+          <figcaption>Figura 1: Diagrama de ejemplo de lógica combinacional.</figcaption>
+        </figure>
+        -->
+
+        <h2>Lógica secuencial y FSM</h2>
+        <p>Flip-flops, registros, contadores y diseño de FSM (Moore y Mealy). Es clave separar la lógica combinacional de la secuencial y diseñar correctamente los resets y las condiciones de reloj para evitar glitches.</p>
+
+        <!-- Dos columnas: diagrama + explicación -->
+        <div class="two-col">
+          <!-- Placeholder para imagen de FSM -->
+          <!-- INSERTAR IMAGEN AQUI:
+          <figure>
+            <img src="assets/images/fsm-diagrama.jpg" alt="Diagrama FSM">
+            <figcaption>Figura 2: Ejemplo de máquina de estados finita.</figcaption>
+          </figure>
+          -->
+          <div>
+            <p class="note"><strong>Nota:</strong> Para síntesis en FPGA, evita constructos no sintetizables; usa registros claramente definidos y evita dependencias de glitch en señales asíncronas.</p>
+            <p>En proyectos reales, es práctico simular en ModelSim/Questa y realizar pruebas en placa con señales de prueba para validar temporizaciones.</p>
           </div>
         </div>
 
-        <div class="editor-toolbar" id="toolbar" style="display:none;">
-          <button data-cmd="bold"><b>B</b></button>
-          <button data-cmd="italic"><i>I</i></button>
-          <button data-cmd="insertUnorderedList">• Lista</button>
-          <button data-cmd="insertOrderedList">1. Lista</button>
-          <button data-cmd="formatBlock" data-value="pre">Código</button>
-          <button data-cmd="createLink">Link</button>
-        </div>
-
-        <div id="editor" class="editor-area" contenteditable="false">
-          <h2>Introducción</h2>
-          <p>Este documento cubre los fundamentos de los sistemas digitales: Álgebra de Boole, minimización, lógica combinacional y secuencial, y ejemplos prácticos en VHDL. Útil como resumen de estudio o referencia rápida.</p>
-
-          <h3>Lógica combinacional</h3>
-          <p>Sumadores, multiplexores, decodificadores y técnicas de minimización (mapas de Karnaugh).</p>
-
-          <h3>Lógica secuencial</h3>
-          <p>Flip-flops, registros y contadores. Diseño de máquinas de estado finito (Moore/Mealy).</p>
-
-          <h3>Ejemplo en VHDL</h3>
-          <pre>-- contador simple en VHDL
+        <h2>Ejemplo en VHDL</h2>
+        <pre>
+-- contador simple en VHDL (ejemplo)
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
@@ -147,105 +221,29 @@ begin
     end if;
   end process;
   q <= std_logic_vector(cnt);
-end Behavioral;</pre>
+end Behavioral;
+        </pre>
 
-          <h3>Conclusión</h3>
-          <p>Este resumen sirve como base para implementar y sintetizar proyectos en FPGA y para organizar estudios de diseño digital.</p>
+        <h2>Implementación y síntesis</h2>
+        <p>Consejos para síntesis: constraints de reloj (SDC), mapear correctamente pines, y revisar warning de optimización. Probar en hardware es indispensable.</p>
+
+        <!-- Placeholder para imagen de implementación en FPGA -->
+        <!-- INSERTAR IMAGEN AQUI:
+        <figure>
+          <img src="assets/images/fpga-board.jpg" alt="Placa FPGA con proyecto">
+          <figcaption>Figura 3: Implementación en placa FPGA (ejemplo).</figcaption>
+        </figure>
+        -->
+
+        <div class="doc-footer">
+          <p>Referencias: documentación de fabricantes (Intel/Altera, Xilinx), libros de sistemas digitales y notas de laboratorio.</p>
         </div>
-      </article>
+      </div>
     </div>
   </main>
 
-  <footer>
+  <footer aria-hidden="true" style="text-align:center; padding:18px 0; color:#9b9b9b; font-size:0.9rem;">
     &copy; Francisco Chávez González — Ingeniería Electrónica
   </footer>
-
-  <script>
-    (function(){
-      const STORAGE_KEY = 'sistemas-digitales-draft-v1';
-      const btnEdit = document.getElementById('btn-edit');
-      const btnSave = document.getElementById('btn-save');
-      const btnExport = document.getElementById('btn-export');
-      const editor = document.getElementById('editor');
-      const toolbar = document.getElementById('toolbar');
-      const titleInput = document.getElementById('doc-title');
-
-      // Cargar borrador si existe
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          if (parsed.title) titleInput.value = parsed.title;
-          if (parsed.html) editor.innerHTML = parsed.html;
-        } catch (err) { console.warn('Error parseando borrador', err); }
-      }
-
-      // Edit toggle
-      let editing = false;
-      btnEdit.addEventListener('click', () => {
-        editing = !editing;
-        editor.contentEditable = editing ? 'true' : 'false';
-        toolbar.style.display = editing ? 'flex' : 'none';
-        btnEdit.textContent = editing ? 'Salir edición' : 'Editar';
-        if (editing) editor.focus();
-      });
-
-      // Toolbar actions (document.execCommand simple)
-      toolbar.addEventListener('click', (e) => {
-        const btn = e.target.closest('button');
-        if (!btn) return;
-        const cmd = btn.dataset.cmd;
-        if (!cmd) return;
-        if (cmd === 'createLink') {
-          const url = prompt('URL del enlace (incluye https://):', 'https://');
-          if (!url) return;
-          document.execCommand('createLink', false, url);
-        } else if (cmd === 'formatBlock') {
-          const value = btn.dataset.value || 'p';
-          document.execCommand('formatBlock', false, value);
-        } else {
-          document.execCommand(cmd, false, null);
-        }
-      });
-
-      // Guardar en localStorage
-      btnSave.addEventListener('click', () => {
-        const payload = {
-          title: titleInput.value,
-          html: editor.innerHTML,
-          updatedAt: new Date().toISOString()
-        };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-        btnSave.textContent = 'Guardado ✓';
-        setTimeout(()=> btnSave.textContent = 'Guardar', 1300);
-      });
-
-      // Exportar HTML
-      btnExport.addEventListener('click', () => {
-        const docTitle = titleInput.value || 'sistemas-digitales';
-        const html = `<!doctype html>
-<html lang="es"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(docTitle)}</title></head>
-<body>
-  <h1>${escapeHtml(docTitle)}</h1>
-  ${editor.innerHTML}
-</body></html>`;
-        const blob = new Blob([html], { type: 'text/html' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = docTitle.replace(/\s+/g,'_') + '.html';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(url);
-      });
-
-      function escapeHtml(s) {
-        return s.replace(/[&<>"]/g, function (c) {
-          return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c];
-        });
-      }
-    })();
-  </script>
 </body>
 </html>
