@@ -206,49 +206,29 @@
 
 
 
-        <h2>Ejemplo en VHDL</h2>
+        <h2>Estructura en VHDL</h2>
         <pre>
 -- contador simple en VHDL (ejemplo)
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
 
-entity contador is
-  Port ( clk : in STD_LOGIC;
-         rst : in STD_LOGIC;
-         q   : out STD_LOGIC_VECTOR (7 downto 0));
-end contador;
+entity compuerta is
+  Port ( A,B : in STD_LOGIC;
+         Z   : out STD_LOGIC);
+end compuerta;
 
-architecture Behavioral of contador is
-  signal cnt: unsigned(7 downto 0) := (others => '0');
+architecture Behavioral of compuerta is
+
 begin
-  process(clk)
-  begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        cnt <= (others => '0');
-      else
-        cnt <= cnt + 1;
-      end if;
-    end if;
-  end process;
-  q <= std_logic_vector(cnt);
+    Z <= A or B;
+      
 end Behavioral;
         </pre>
 
-        <h2>Implementación y síntesis</h2>
-        <p>Consejos para síntesis: constraints de reloj (SDC), mapear correctamente pines, y revisar warning de optimización. Probar en hardware es indispensable.</p>
 
-        <!-- Placeholder para imagen de implementación en FPGA -->
-        <!-- INSERTAR IMAGEN AQUI:
-        <figure>
-          <img src="assets/images/fpga-board.jpg" alt="Placa FPGA con proyecto">
-          <figcaption>Figura 3: Implementación en placa FPGA (ejemplo).</figcaption>
-        </figure>
-        -->
 
         <div class="doc-footer">
-          <p>Referencias: documentación de fabricantes (Intel/Altera, Xilinx), libros de sistemas digitales y notas de laboratorio.</p>
+          <p>Referencias: documentación de libros de sistemas digitales y notas de laboratorio y clases.</p>
         </div>
       </div>
     </div>
