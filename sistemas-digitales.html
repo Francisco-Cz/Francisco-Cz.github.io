@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistemas Digitales – Francisco Chávez González</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* Estilos locales del artículo/editor (pegar aquí evita tocar style.css) */
+    .page-wrap { padding: 2rem; }
+    .report-article {
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.03));
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 4px 4px 12px rgba(0,0,0,0.25);
+      margin-bottom: 1.2rem;
+    }
+    .report-header { display:flex; gap:1rem; align-items:flex-start; flex-wrap:wrap; margin-bottom:1rem; }
+    .report-cover { width:360px; max-width:100%; aspect-ratio:16/9; overflow:hidden; border-radius:10px; flex-shrink:0; }
+    .report-cover img { width:100%; height:100%; object-fit:cover; display:block; }
+    .editor-title {
+      width:100%;
+      font-size:1.2rem;
+      margin:0 0 0.5rem 0;
+      padding:0.4rem 0.6rem;
+      background:transparent;
+      border: none;
+      color:var(--text);
+      border-radius:8px;
+    }
+    .editor-toolbar { display:flex; gap:0.5rem; margin-bottom:0.6rem; flex-wrap:wrap; }
+    .editor-toolbar button, .editor-actions button {
+      padding:0.35rem 0.6rem;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,0.04);
+      background:rgba(255,255,255,0.02);
+      color:var(--text);
+      cursor:pointer;
+    }
+    .editor-area {
+      min-height: 380px;
+      border-radius:10px;
+      padding:0.9rem;
+      background: rgba(0,0,0,0.03);
+      outline: none;
+      overflow:auto;
+      color:var(--text);
+    }
+    .editor-actions { display:flex; gap:0.6rem; margin-top:0.8rem; }
+    .btn-primary { background: var(--accent); color:#fff; border:none; padding:0.5rem 0.7rem; border-radius:8px; cursor:pointer; }
+    .back-link {
+      display:inline-block;
+      margin-bottom:0.8rem;
+      text-decoration:none;
+      color:var(--text);
+      font-size:0.95rem;
+      padding:0.35rem 0.6rem;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,0.03);
+      background: rgba(255,255,255,0.01);
+    }
+    @media (max-width:720px) {
+      .report-header { flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="sidebar">
+    <img src="profile.jpeg" class="profile" alt="Foto de perfil de Francisco">
+    <h2>Francisco Chávez</h2>
+    <p class="role">Ingeniería Electrónica</p>
+    <ul>
+      <li><a href="about.html">Sobre mí</a></li>
+      <li><a href="projects.html">Proyectos</a></li>
+      <li><a href="reports.html">Reportes</a></li>
+      <li><a href="code.html">Códigos</a></li>
+      <li><a href="contact.html">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="page-wrap">
+      <a class="back-link" href="reports.html">← Volver a Reportes</a>
+
+      <article class="report-article">
+        <div class="report-header">
+          <div class="report-cover">
+            <img src="assets/images/sistemas-digitales.jpg" alt="Sistemas Digitales — portada">
+          </div>
+
+          <div style="flex:1; min-width:0;">
+            <input id="doc-title" class="editor-title" value="Sistemas Digitales — Resumen y Fundamentos" placeholder="Título del reporte">
+            <p style="margin:0 0 0.6rem 0; color:#cfcfcf;">
+              Resumen: álgebra de Boole, lógica combinacional y secuencial, FSM, ejemplos en VHDL y consideraciones para FPGA.
+            </p>
+
+            <div class="editor-actions">
+              <button id="btn-edit">Editar</button>
+              <button id="btn-save" class="btn-primary">Guardar</button>
+              <button id="btn-export">Exportar HTML</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="editor-toolbar" id="toolbar" style="display:none;">
+          <button data-cmd="bold"><b>B</b></button>
+          <button data-cmd="italic"><i>I</i></button>
+          <button data-cmd="insertUnorderedList">• Lista</button>
+          <button data-cmd="insertOrderedList">1. Lista</button>
+          <button data-cmd="formatBlock" data-value="pre">Código</button>
+          <button data-cmd="createLink">Link</button>
+        </div>
+
+        <div id="editor" class="editor-area" contenteditable="false">
+          <h2>Introducción</h2>
+          <p>Este documento cubre los fundamentos de los sistemas digitales: Álgebra de Boole, minimización, lógica combinacional y secuencial, y ejemplos prácticos en VHDL. Útil como resumen de estudio o referencia rápida.</p>
+
+          <h3>Lógica combinacional</h3>
+          <p>Sumadores, multiplexores, decodificadores y técnicas de minimización (mapas de Karnaugh).</p>
+
+          <h3>Lógica secuencial</h3>
+          <p>Flip-flops, registros y contadores. Diseño de máquinas de estado finito (Moore/Mealy).</p>
+
+          <h3>Ejemplo en VHDL</h3>
+          <pre>-- contador simple en VHDL
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity contador is
+  Port ( clk : in STD_LOGIC;
+         rst : in STD_LOGIC;
+         q   : out STD_LOGIC_VECTOR (7 downto 0));
+end contador;
+
+architecture Behavioral of contador is
+  signal cnt: unsigned(7 downto 0) := (others => '0');
+begin
+  process(clk)
+  begin
+    if rising_edge(clk) then
+      if rst = '1' then
+        cnt <= (others => '0');
+      else
+        cnt <= cnt + 1;
+      end if;
+    end if;
+  end process;
+  q <= std_logic_vector(cnt);
+end Behavioral;</pre>
+
+          <h3>Conclusión</h3>
+          <p>Este resumen sirve como base para implementar y sintetizar proyectos en FPGA y para organizar estudios de diseño digital.</p>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    &copy; Francisco Chávez González — Ingeniería Electrónica
+  </footer>
+
+  <script>
+    (function(){
+      const STORAGE_KEY = 'sistemas-digitales-draft-v1';
+      const btnEdit = document.getElementById('btn-edit');
+      const btnSave = document.getElementById('btn-save');
+      const btnExport = document.getElementById('btn-export');
+      const editor = document.getElementById('editor');
+      const toolbar = document.getElementById('toolbar');
+      const titleInput = document.getElementById('doc-title');
+
+      // Cargar borrador si existe
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (parsed.title) titleInput.value = parsed.title;
+          if (parsed.html) editor.innerHTML = parsed.html;
+        } catch (err) { console.warn('Error parseando borrador', err); }
+      }
+
+      // Edit toggle
+      let editing = false;
+      btnEdit.addEventListener('click', () => {
+        editing = !editing;
+        editor.contentEditable = editing ? 'true' : 'false';
+        toolbar.style.display = editing ? 'flex' : 'none';
+        btnEdit.textContent = editing ? 'Salir edición' : 'Editar';
+        if (editing) editor.focus();
+      });
+
+      // Toolbar actions (document.execCommand simple)
+      toolbar.addEventListener('click', (e) => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const cmd = btn.dataset.cmd;
+        if (!cmd) return;
+        if (cmd === 'createLink') {
+          const url = prompt('URL del enlace (incluye https://):', 'https://');
+          if (!url) return;
+          document.execCommand('createLink', false, url);
+        } else if (cmd === 'formatBlock') {
+          const value = btn.dataset.value || 'p';
+          document.execCommand('formatBlock', false, value);
+        } else {
+          document.execCommand(cmd, false, null);
+        }
+      });
+
+      // Guardar en localStorage
+      btnSave.addEventListener('click', () => {
+        const payload = {
+          title: titleInput.value,
+          html: editor.innerHTML,
+          updatedAt: new Date().toISOString()
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        btnSave.textContent = 'Guardado ✓';
+        setTimeout(()=> btnSave.textContent = 'Guardar', 1300);
+      });
+
+      // Exportar HTML
+      btnExport.addEventListener('click', () => {
+        const docTitle = titleInput.value || 'sistemas-digitales';
+        const html = `<!doctype html>
+<html lang="es"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(docTitle)}</title></head>
+<body>
+  <h1>${escapeHtml(docTitle)}</h1>
+  ${editor.innerHTML}
+</body></html>`;
+        const blob = new Blob([html], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = docTitle.replace(/\s+/g,'_') + '.html';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      });
+
+      function escapeHtml(s) {
+        return s.replace(/[&<>"]/g, function (c) {
+          return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c];
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
