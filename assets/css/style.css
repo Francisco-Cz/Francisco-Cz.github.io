@@ -317,20 +317,21 @@ figure.tech-figure img {
 
 
 
-.code-block {
-  margin-bottom: 2.5rem;
-}
-
-.code-block h4 {
-  margin-bottom: 0.5rem;
-  color: #00bcd4;
+.code-group {
+  margin-bottom: 2rem;
 }
 
 .code-list {
-  padding-left: 1.2rem;
+  list-style: none;
+  padding-left: 0;
 }
 
 .code-list li {
-  margin-bottom: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.code-desc {
+  font-size: 0.9rem;
+  opacity: 0.85;
 }
 
