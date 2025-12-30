@@ -305,5 +305,13 @@ footer {
 }
 
 
+figure.tech-figure img {
+  max-width: 520px;
+  width: 100%;
+  margin: 0 auto;
+  display: block;
+}
+
+
 
 
