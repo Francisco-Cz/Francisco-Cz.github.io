@@ -1,29 +1,75 @@
-<section id="reports">
-  <h3>Reportes</h3>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reportes – Francisco Chávez González</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <nav class="sidebar">
+    <img src="profile.jpeg" class="profile" alt="Foto de perfil de Francisco">
+    <h2>Francisco Chávez</h2>
+    <p class="role">Ingeniería Electrónica</p>
+    <ul>
+      <li><a href="about.html">Sobre mí</a></li>
+      <li><a href="projects.html">Proyectos</a></li>
+      <li><a href="reports.html" class="active">Reportes</a></li>
+      <li><a href="code.html">Códigos</a></li>
+      <li><a href="contact.html">Contacto</a></li>
+    </ul>
+  </nav>
 
-  <!-- Grid de tarjetas verticales -->
-  <div class="reports-grid">
-    <a class="report-card-vert" href="sistemas-digitales.html" aria-label="Abrir Sistemas Digitales">
-      <div class="card-thumb-wrap">
-        <img src="assets/images/sistemas-digitales.jpg" alt="Sistemas Digitales — portada" class="card-thumb">
+  <main>
+    <section id="reports">
+      <h3>Reportes</h3>
+
+      <!-- Grid de tarjetas verticales -->
+      <div class="reports-grid">
+        <!-- Tarjeta: Sistemas Digitales -->
+        <a class="report-card-vert" href="sistemas-digitales.html" aria-label="Abrir Sistemas Digitales">
+          <div class="card-thumb-wrap">
+            <img src="assets/images/sistemas-digitales.jpg" alt="Sistemas Digitales — portada" class="card-thumb">
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Sistemas Digitales — Resumen y Fundamentos</h4>
+            <p class="card-desc">Lógica combinacional y secuencial, FSM, Álgebra de Boole y ejemplos prácticos en Verilog.</p>
+            <div class="card-tags">
+              <span class="tag">Verilog</span>
+              <span class="tag">FSM</span>
+              <span class="tag">Álgebra</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Ejemplo: otra tarjeta (descomenta / duplica para más) -->
+        <!--
+        <a class="report-card-vert" href="otro-reporte.html">
+          <div class="card-thumb-wrap">
+            <img src="assets/images/otra-portada.jpg" alt="Otro reporte" class="card-thumb">
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Título del otro reporte</h4>
+            <p class="card-desc">Descripción corta del contenido del reporte.</p>
+            <div class="card-tags">
+              <span class="tag">Tag1</span>
+              <span class="tag">Tag2</span>
+            </div>
+          </div>
+        </a>
+        -->
       </div>
-      <div class="card-body">
-        <h4 class="card-title">Sistemas Digitales — Resumen y Fundamentos</h4>
-        <p class="card-desc">Lógica combinacional y secuencial, FSM, Álgebra de Boole y ejemplos prácticos en Verilog.</p>
-        <div class="card-tags">
-          <span class="tag">Verilog</span>
-          <span class="tag">FSM</span>
-          <span class="tag">Álgebra</span>
-        </div>
-      </div>
-    </a>
 
-    <!-- Puedes duplicar la tarjeta para agregar más -->
-  </div>
+      <!-- Lista de PDFs existentes -->
+      <ul>
+        <li><a href="assets/reports/Amplificadores_Audio.pdf" target="_blank">Diseño de Amplificadores de Audio (PDF)</a></li>
+        <li><a href="assets/reports/UART_con_PIC.pdf" target="_blank">Comunicaciones UART con PIC (PDF)</a></li>
+      </ul>
+    </section>
+  </main>
 
-  <!-- Lista de PDFs existentes -->
-  <ul>
-    <li><a href="assets/reports/Amplificadores_Audio.pdf" target="_blank">Diseño de Amplificadores de Audio (PDF)</a></li>
-    <li><a href="assets/reports/UART_con_PIC.pdf" target="_blank">Comunicaciones UART con PIC (PDF)</a></li>
-  </ul>
-</section>
+  <footer>
+    &copy; Francisco Chávez González — Ingeniería Electrónica
+  </footer>
+</body>
+</html>
