@@ -318,11 +318,10 @@ figure.tech-figure img {
 
 
 .code-group {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .code-list {
-  list-style: none;
   padding-left: 0;
 }
 
@@ -331,7 +330,9 @@ figure.tech-figure img {
 }
 
 .code-desc {
+  margin-top: 0.3rem;
   font-size: 0.9rem;
   opacity: 0.85;
 }
+
 
