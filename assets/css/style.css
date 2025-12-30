@@ -306,9 +306,9 @@ footer {
 
 
 figure.tech-figure img {
-  max-width: 520px;
-  width: 70%;
-  margin: 0 auto;
+  max-width: 500px;
+  width: 60%;
+  margin: 10 auto;
   display: block;
 }
 
