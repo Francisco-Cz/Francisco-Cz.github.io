@@ -20,83 +20,86 @@
     </ul>
   </nav>
 
-  <main>
-    <section id="code">
-  <h3>Códigos</h3>
-
-  <!-- MATLAB -->
-  <article class="code-block">
-    <h4>MATLAB / Simulink</h4>
-    <p>
-      Algoritmos de control, análisis de sistemas dinámicos y simulación
-      en tiempo continuo y discreto.
-    </p>
-
-    <ul class="code-list">
-      <li>
-        <strong>Control PID</strong> –
-        Sintonización, respuesta temporal y estabilidad
-        <a href="https://github.com/tu-usuario/control-pid" target="_blank">[GitHub]</a>
-      </li>
-      <li>
-        <strong>Análisis en Frecuencia</strong> –
-        Diagramas de Bode, Nyquist
-      </li>
-      <li>
-        <strong>Espacio de Estados</strong> –
-        Modelado y control moderno
-      </li>
-    </ul>
-  </article>
-
-  <!-- XILINX / FPGA -->
-  <article class="code-block">
-    <h4>Xilinx / FPGA (VHDL)</h4>
-    <p>
-      Diseño digital y sistemas embebidos implementados en FPGA.
-    </p>
-
-    <ul class="code-list">
-      <li>
-        <strong>Máquinas de Estados</strong> –
-        Moore y Mealy
-      </li>
-      <li>
-        <strong>UART</strong> –
-        Comunicación serial en VHDL
-      </li>
-      <li>
-        <strong>Contadores y Registros</strong>
-      </li>
-    </ul>
-  </article>
-
-  <!-- ENSAMBLADOR -->
-  <article class="code-block">
-    <h4>Ensamblador / Microcontroladores</h4>
-    <p>
-      Programación a bajo nivel orientada al control del hardware.
-    </p>
-
-    <ul class="code-list">
-      <li>
-        <strong>Timers</strong> –
-        Configuración y uso
-      </li>
-      <li>
-        <strong>Interrupciones</strong>
-      </li>
-      <li>
-        <strong>Comunicación Serial</strong>
-      </li>
-    </ul>
-  </article>
-</section>
 
 
+<main>
+  <section id="code">
+    <h3>Códigos</h3>
 
-    
-   
-  </main>
+    <!-- MATLAB -->
+    <div class="code-group">
+      <h4>MATLAB</h4>
+      <ul class="code-list">
+        <li>
+          <a href="https://github.com/tu-usuario/control-pid" target="_blank">
+            Control PID y Análisis en Frecuencia
+          </a>
+          <p class="code-desc">
+            Simulación de sistemas LTI, diagramas de Bode, lugar de raíces
+            y diseño de controladores PID.
+          </p>
+        </li>
+
+        <li>
+          <a href="https://github.com/tu-usuario/senales-sistemas" target="_blank">
+            Señales y Sistemas
+          </a>
+          <p class="code-desc">
+            Transformada de Fourier, respuesta al impulso y convolución.
+          </p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- HDL / Xilinx -->
+    <div class="code-group">
+      <h4>HDL – VHDL / Verilog (Xilinx)</h4>
+      <ul class="code-list">
+        <li>
+          <a href="https://github.com/tu-usuario/sistemas-digitales" target="_blank">
+            Lógica Combinacional y Secuencial
+          </a>
+          <p class="code-desc">
+            Sumadores, contadores, FSM y testbenches para FPGA.
+          </p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- C / Embedded -->
+    <div class="code-group">
+      <h4>C / Sistemas Embebidos</h4>
+      <ul class="code-list">
+        <li>
+          <a href="https://github.com/tu-usuario/microcontroladores" target="_blank">
+            Programación de Microcontroladores
+          </a>
+          <p class="code-desc">
+            Manejo de GPIO, timers, ADC y comunicación serial.
+          </p>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Ensamblador -->
+    <div class="code-group">
+      <h4>Ensamblador</h4>
+      <ul class="code-list">
+        <li>
+          <a href="https://github.com/tu-usuario/asm-pic" target="_blank">
+            Rutinas en Ensamblador
+          </a>
+          <p class="code-desc">
+            Manejo de registros, interrupciones y control de hardware a bajo nivel.
+          </p>
+        </li>
+      </ul>
+    </div>
+
+  </section>
+</main>
+
+  
+ 
 </body>
 </html>
