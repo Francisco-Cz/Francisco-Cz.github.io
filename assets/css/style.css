@@ -323,10 +323,11 @@ figure.tech-figure img {
 
 .code-list {
   padding-left: 0;
+  margin-bottom: 1rem;
 }
 
 .code-list li {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .code-desc {
