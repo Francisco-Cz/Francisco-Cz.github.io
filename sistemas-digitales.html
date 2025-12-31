@@ -164,7 +164,7 @@
 
     a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
 
-    /* ========== LIGHTBOX / MODAL CON ZOOM ========== */
+    /* ========== LIGHTBOX / MODAL CON ZOOM Y PAN ========== */
     .lightbox {
       display: none;
       position: fixed;
@@ -186,23 +186,25 @@
 
     .lightbox-content {
       position: relative;
-      max-width: 95%;
-      max-height: 95%;
+      width: 100%;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
 
     .lightbox-img {
-      max-width: 100%;
+      max-width: 90%;
       max-height: 90vh;
       object-fit: contain;
-      transition: transform 0.3s ease;
-      cursor: zoom-in;
+      transition: transform 0.1s ease;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-drag: none;
     }
-    .lightbox-img.zoomed {
-      cursor: zoom-out;
-      transform: scale(2);
+    .lightbox-img.dragging {
+      cursor: grabbing;
     }
 
     /* Botón cerrar */
@@ -269,6 +271,24 @@
       z-index: 10000;
     }
 
+    /* Instrucciones */
+    .pan-hint {
+      position: absolute;
+      top: 60px;
+      left: 30px;
+      color: rgba(255,255,255,0.7);
+      background: rgba(0,0,0,0.5);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      z-index: 10000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .pan-hint.visible {
+      opacity: 1;
+    }
+
     @media (max-width: 768px) {
       .lightbox-close {
         top: 10px;
@@ -288,6 +308,10 @@
       figure::after {
         font-size: 0.7rem;
         padding: 3px 8px;
+      }
+      .zoom-info, .pan-hint {
+        left: 10px;
+        font-size: 12px;
       }
     }
   </style>
@@ -376,8 +400,9 @@ end Behavioral;
   <div class="lightbox" id="lightbox">
     <span class="lightbox-close" id="closeLightbox">&times;</span>
     <div class="zoom-info" id="zoomInfo">100%</div>
-    <div class="lightbox-content">
-      <img class="lightbox-img" id="lightboxImg" src="" alt="">
+    <div class="pan-hint" id="panHint">🖱️ Arrastra para desplazarte</div>
+    <div class="lightbox-content" id="lightboxContent">
+      <img class="lightbox-img" id="lightboxImg" src="" alt="" draggable="false">
     </div>
     <div class="zoom-controls">
       <button class="zoom-btn" id="zoomOut">−</button>
@@ -387,19 +412,28 @@ end Behavioral;
   </div>
 
   <script>
-    // Lightbox con zoom
+    // Lightbox con zoom y pan/arrastre
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxContent = document.getElementById('lightboxContent');
     const closeLightbox = document.getElementById('closeLightbox');
     const zoomInfo = document.getElementById('zoomInfo');
+    const panHint = document.getElementById('panHint');
     const zoomInBtn = document.getElementById('zoomIn');
     const zoomOutBtn = document.getElementById('zoomOut');
     const zoomResetBtn = document.getElementById('zoomReset');
 
     let currentZoom = 1;
     const zoomStep = 0.25;
-    const maxZoom = 4;
+    const maxZoom = 5;
     const minZoom = 0.5;
+
+    // Variables para pan/arrastre
+    let isPanning = false;
+    let startX = 0;
+    let startY = 0;
+    let translateX = 0;
+    let translateY = 0;
 
     // Abrir lightbox al hacer clic en cualquier figura
     document.querySelectorAll('figure[data-lightbox] img').forEach(img => {
@@ -408,7 +442,9 @@ end Behavioral;
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
         currentZoom = 1;
-        updateZoom();
+        translateX = 0;
+        translateY = 0;
+        updateTransform();
       });
     });
 
@@ -417,7 +453,10 @@ end Behavioral;
       lightbox.classList.remove('active');
       document.body.style.overflow = 'auto';
       currentZoom = 1;
-      lightboxImg.style.transform = 'scale(1)';
+      translateX = 0;
+      translateY = 0;
+      updateTransform();
+      panHint.classList.remove('visible');
     }
 
     closeLightbox.addEventListener('click', closeLightboxFunc);
@@ -429,57 +468,144 @@ end Behavioral;
       }
     });
 
-    // Cerrar al hacer clic fuera de la imagen
+    // Cerrar al hacer clic en el fondo (no en la imagen)
     lightbox.addEventListener('click', function(e) {
-      if (e.target === lightbox) {
+      if (e.target === lightbox || e.target === lightboxContent) {
         closeLightboxFunc();
       }
     });
 
-    // Funciones de zoom
-    function updateZoom() {
-      lightboxImg.style.transform = `scale(${currentZoom})`;
+    // Función para actualizar transformación (zoom + pan)
+    function updateTransform() {
+      lightboxImg.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
       zoomInfo.textContent = `${Math.round(currentZoom * 100)}%`;
+      
+      // Mostrar hint de arrastre cuando hay zoom
+      if (currentZoom > 1) {
+        panHint.classList.add('visible');
+      } else {
+        panHint.classList.remove('visible');
+      }
     }
 
+    // Funciones de zoom
     zoomInBtn.addEventListener('click', function() {
       if (currentZoom < maxZoom) {
         currentZoom += zoomStep;
-        updateZoom();
+        updateTransform();
       }
     });
 
     zoomOutBtn.addEventListener('click', function() {
       if (currentZoom > minZoom) {
         currentZoom -= zoomStep;
-        updateZoom();
+        // Resetear pan al hacer zoom out a 1
+        if (currentZoom === 1) {
+          translateX = 0;
+          translateY = 0;
+        }
+        updateTransform();
       }
     });
 
     zoomResetBtn.addEventListener('click', function() {
       currentZoom = 1;
-      updateZoom();
-    });
-
-    // Zoom con doble clic en la imagen
-    lightboxImg.addEventListener('dblclick', function() {
-      if (currentZoom === 1) {
-        currentZoom = 2;
-      } else {
-        currentZoom = 1;
-      }
-      updateZoom();
+      translateX = 0;
+      translateY = 0;
+      updateTransform();
     });
 
     // Zoom con rueda del mouse
     lightboxImg.addEventListener('wheel', function(e) {
       e.preventDefault();
+      const oldZoom = currentZoom;
+      
       if (e.deltaY < 0 && currentZoom < maxZoom) {
         currentZoom += zoomStep;
       } else if (e.deltaY > 0 && currentZoom > minZoom) {
         currentZoom -= zoomStep;
       }
-      updateZoom();
+      
+      // Resetear pan al volver a zoom 1
+      if (currentZoom === 1) {
+        translateX = 0;
+        translateY = 0;
+      }
+      
+      updateTransform();
+    }, { passive: false });
+
+    // ========== PAN/ARRASTRE ==========
+    // Iniciar arrastre
+    lightboxImg.addEventListener('mousedown', function(e) {
+      if (currentZoom > 1) {
+        isPanning = true;
+        startX = e.clientX - translateX;
+        startY = e.clientY - translateY;
+        lightboxImg.classList.add('dragging');
+        e.preventDefault();
+      }
+    });
+
+    // Mover mientras arrastra
+    document.addEventListener('mousemove', function(e) {
+      if (isPanning) {
+        translateX = e.clientX - startX;
+        translateY = e.clientY - startY;
+        updateTransform();
+      }
+    });
+
+    // Terminar arrastre
+    document.addEventListener('mouseup', function() {
+      if (isPanning) {
+        isPanning = false;
+        lightboxImg.classList.remove('dragging');
+      }
+    });
+
+    // Soporte táctil para móviles
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    lightboxImg.addEventListener('touchstart', function(e) {
+      if (currentZoom > 1 && e.touches.length === 1) {
+        isPanning = true;
+        touchStartX = e.touches[0].clientX - translateX;
+        touchStartY = e.touches[0].clientY - translateY;
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    lightboxImg.addEventListener('touchmove', function(e) {
+      if (isPanning && e.touches.length === 1) {
+        translateX = e.touches[0].clientX - touchStartX;
+        translateY = e.touches[0].clientY - touchStartY;
+        updateTransform();
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    lightboxImg.addEventListener('touchend', function() {
+      isPanning = false;
+    });
+
+    // Doble click para zoom 2x
+    lightboxImg.addEventListener('dblclick', function(e) {
+      if (currentZoom === 1) {
+        currentZoom = 2;
+        // Centrar zoom en la posición del click
+        const rect = lightboxImg.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        translateX = -x * 0.5;
+        translateY = -y * 0.5;
+      } else {
+        currentZoom = 1;
+        translateX = 0;
+        translateY = 0;
+      }
+      updateTransform();
     });
   </script>
 
