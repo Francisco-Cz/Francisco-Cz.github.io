@@ -332,57 +332,60 @@
 
       <div class="content">
         <h2>Introducción a Sistemas de Control</h2>
-        <p>Un sistema digital es un elemento diseñado para procesar señales de entrada que son interpretadas como discretas(0,1)
-          y pueden dar un resultado también discreto(0,1). Los dispositivos digitales más básicos se llaman compuertas lógicas
-          (And, Or, Not), puedes crear cualquier sistema.</p>
+        <p>Un sistema de control es un mecanismo diseñado para hacer que un proceso se comporte de la manera deseada, tomando decisiones
+          de forma automática, ajustando continuamente sus acciones para mantener estabilidad, precisión y respuesta adecuada frente a 
+          perturbaciones internas o externas.</p>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// <-->
-        <h3>Sistema Binario</h3>
-        <p>Los circuitos digitales procesan datos binarios. Esos datos pueden representar números, letras, etc.</p>
+        <h3>Diagramas de Bode</h3>
+        <p>Son representaciones gráficas de la respuesta en frecuencia de un sistema, que muestran cómo varían la magnitud y la fase.</p>
         <figure class="tech-figure" data-lightbox>
-          <img src="assets/images/diagrama-combinacional.jpg" alt="Diagrama combinacional">
-          <!--figcaption>Diagrama de circuito combinacional</figcaption-->
+          <img src="assets/images/c1.jpg" alt="Diagrama combinacional">
         </figure>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// <-->
-        <h3>Álgebra de Boole</h3>
-        <p>Es una herramienta matemática para representar cuestiones lógicas.</p>
+        <h3>Compensador en Adelanto</h3>
+        <p>Anticipa el comportamiento futuro del error y actúa antes de que éste crezca, logrando que el sistema sea más rápido, más estable
+          y menos propenso a oscilaciones -(filtro pasa altas).</p>
         <figure class="tech-figure" data-lightbox>
-          <img src="assets/images/boole.jpg" alt="Álgebra de Boole">
-          <!--figcaption>Fundamentos del álgebra de Boole</figcaption-->
+          <img src="assets/images/c2.jpg" alt="Álgebra de Boole">
         </figure>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// <-->
-        <h3>Análisis y Diseño de Combinacionales</h3>
-        <p>Análisis: Significa analizar un circuito para obtener el funcionamiento de este, (que salida tendrá en cada caso).</p>
-        <p>Compuertas compuestas: tiene inversiones lógicas en entradas o salidas.</p>
-        <p>Diseño: el proceso de convertir en un circuito combinacional(suma canónica).</p>
+        <h3>Compensador en Atraso</h3>
+        <p>Es más preciso, porque concentra su acción donde realmente importa y evita alterar en exceso la dinámica que ya funciona bien -(filtro pasa bajas).</p>
         <figure class="tech-figure" data-lightbox>
-          <img src="assets/images/compuertas.jpg" alt="Compuertas lógicas">
-          <!--figcaption>Compuertas lógicas básicas</figcaption-->
+          <img src="assets/images/c3.jpg" alt="Compuertas lógicas">
         </figure>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// <-->
-        <h3>Mapas de Karnaugh</h3>
-        <p>Es una representación alternativa a las tablas de verdad, que permite realizar funciones lógicas.</p>
+        <h3>PID</h3>
+        <p>Reacciona al error actual (proporcional), corrige errores acumulados anteriores (integral) y se adelanta a los cambios futuros del sistema (derivativo),
+          logrando un control equilibrado que ofrece estabilidad, precisión y rapidez.</p>
         <figure class="tech-figure" data-lightbox>
-          <img src="assets/images/mapa.jpg" alt="Mapa de Karnaugh">
-          <!--figcaption>Ejemplo de mapa de Karnaugh</figcaption-->
+          <img src="assets/images/c4.jpg" alt="Mapa de Karnaugh">
         </figure>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// <-->
-        <h2>Estructura Básica en VHDL</h2>
+       <h3>Variables de Estado</h3>
+        <p>Un estado es una variable que almacena memoria del pasado y permite predecir el comportamiento futuro del sistema.</p>
+        <figure class="tech-figure" data-lightbox>
+          <img src="assets/images/c5.jpg" alt="Mapa de Karnaugh">
+        </figure>
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// <-->
+       <h3>Controlabilidad y Observabilidad</h3>
+        <p>La controlabilidad indica si mediante las entradas es posible moverlo a cualquier estado deseado.
+           La observabilidad indica si a partir de lo que se mide en la salida se puede reconstruir lo que ocurre internamente.</p>
+        <figure class="tech-figure" data-lightbox>
+          <img src="assets/images/c6.jpg" alt="Mapa de Karnaugh">
+        </figure>
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// <-->
+        <h2>Scrip Base en Matlab</h2>
         <pre>
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+          
+s = tf('s');        
 
-entity compuerta is
-  Port ( A,B : in STD_LOGIC;
-         Z   : out STD_LOGIC);
-end compuerta;
+G = 5/(s + 2);      % Planta
 
-architecture Behavioral of compuerta is
+bode(G)             % Diagrama de Bode (magnitud y fase)
 
-begin
+grid on             
 
-    Z <= A or B;
-      
-end Behavioral;
         </pre>
 
         <div class="doc-footer">
