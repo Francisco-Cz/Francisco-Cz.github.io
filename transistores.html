@@ -332,57 +332,44 @@
 
       <div class="content">
         <h2>Introducción a Semiconductores </h2>
-        <p>Un sistema digital es un elemento diseñado para procesar señales de entrada que son interpretadas como discretas(0,1)
-          y pueden dar un resultado también discreto(0,1). Los dispositivos digitales más básicos se llaman compuertas lógicas
-          (And, Or, Not), puedes crear cualquier sistema.</p>
+        <p>Los semiconductores son elementos (principalmente modificados) cuya capacidad para conducir se puede
+          controlar mediante impurezas (dopaje), lo que permite hacer dispositivos fundamentales como diodos, 
+          transistores y circuitos integrados, base de toda la electrónica moderna. </p>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// <-->
-        <h3>Sistema Binario</h3>
-        <p>Los circuitos digitales procesan datos binarios. Esos datos pueden representar números, letras, etc.</p>
+        <h3>Aplicaciones del Diodo</h3>
+        <p>Por su capacidad para conducir corriente en una dirección en una dirección y bloquearla en la otra,
+          se utilizan para rectificar señales alternas.</p>
         <figure class="tech-figure" data-lightbox>
-          <img src="assets/images/diagrama-combinacional.jpg" alt="Diagrama combinacional">
-          <!--figcaption>Diagrama de circuito combinacional</figcaption-->
+          <img src="assets/images/t1.jpg" alt="D">
         </figure>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// <-->
-        <h3>Álgebra de Boole</h3>
-        <p>Es una herramienta matemática para representar cuestiones lógicas.</p>
+        <h3>Análisis BJT</h3>
+        <p>Es un dispositivo semiconductor que controla una corriente grande mediante una corriente pequeña en la 
+          base. Se emplea principalmente como amplificador y conmutador en circuitos analógicos y digitales.</p>
         <figure class="tech-figure" data-lightbox>
-          <img src="assets/images/boole.jpg" alt="Álgebra de Boole">
-          <!--figcaption>Fundamentos del álgebra de Boole</figcaption-->
+          <img src="assets/images/t2.jpg" alt="D">
         </figure>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// <-->
-        <h3>Análisis y Diseño de Combinacionales</h3>
-        <p>Análisis: Significa analizar un circuito para obtener el funcionamiento de este, (que salida tendrá en cada caso).</p>
-        <p>Compuertas compuestas: tiene inversiones lógicas en entradas o salidas.</p>
-        <p>Diseño: el proceso de convertir en un circuito combinacional(suma canónica).</p>
+        <h3>Análisis MOSFET</h3>
+        <p>Es prácticamente un interruptor controlado por voltaje; la compuerta está aislada por un óxido, lo que
+          le da altísima impedancia de entrada, bajo consumo y gran velocidad. Por eso es la pieza clave de la 
+          electrónica digital moderna (CMOS, microprocesadores, memorias).</p>
         <figure class="tech-figure" data-lightbox>
-          <img src="assets/images/compuertas.jpg" alt="Compuertas lógicas">
-          <!--figcaption>Compuertas lógicas básicas</figcaption-->
+          <img src="assets/images/t3.jpg" alt="D">
         </figure>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// <-->
-        <h3>Mapas de Karnaugh</h3>
-        <p>Es una representación alternativa a las tablas de verdad, que permite realizar funciones lógicas.</p>
+        <h3>Espejos de Corriente</h3>
+        <p>Es un circuito electronico que copia o “refleja” una corriente de referencia en una o varias ramas,
+          manteniéndola prácticamente constante. Son el “sistema circulatorio” de los circuitos integrados.</p>
         <figure class="tech-figure" data-lightbox>
-          <img src="assets/images/mapa.jpg" alt="Mapa de Karnaugh">
-          <!--figcaption>Ejemplo de mapa de Karnaugh</figcaption-->
+          <img src="assets/images/t4.jpg" alt="D">
         </figure>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// <-->
-        <h2>Estructura Básica en VHDL</h2>
+        <h2>Circuito en LTsipce</h2>
         <pre>
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-
-entity compuerta is
-  Port ( A,B : in STD_LOGIC;
-         Z   : out STD_LOGIC);
-end compuerta;
-
-architecture Behavioral of compuerta is
-
-begin
-
-    Z <= A or B;
-      
-end Behavioral;
+        <figure class="tech-figure" data-lightbox>
+          <img src="assets/images/t5.jpg" alt="D">
+        </figure>
         </pre>
 
         <div class="doc-footer">
