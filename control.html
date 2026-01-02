@@ -378,14 +378,24 @@
         <h2>Scrip Base en Matlab</h2>
         <pre>
           
-s = tf('s');        
+s = tf('s');
 
-G = 5/(s + 2);      % Planta
+Gp = 10/(s*(s + 1));         %Planta
+Gc = 15.15*(s + 2.69)/20.38; %Compensador 
 
-bode(G)             % Diagrama de Bode (magnitud y fase)
+figure                       %Bode
+bode(Gc*Gp)                  
+grid on
 
-grid on             
-
+figure                       %Respuesta 
+T = feedback(Gc*Gp,1);
+step(T)
+grid on
+          
+info = stepinfo(T);
+Mp = info.Overshoot
+t = info.SettlingTime
+          
         </pre>
 
         <div class="doc-footer">
