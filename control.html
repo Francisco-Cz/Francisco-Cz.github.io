@@ -381,7 +381,7 @@
 s = tf('s');
 
 Gp = 10/(s*(s + 1));         %Planta
-Gc = 15.15*(s + 2.69)/20.38; %Compensador 
+Gc = 15.15*(s + 2.69)/(s + 20.38); %Compensador 
 
 figure                       %Bode
 bode(Gc*Gp)                  
