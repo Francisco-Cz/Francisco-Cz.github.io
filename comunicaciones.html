@@ -1,1 +1,596 @@
-Hola
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sistemas Digitales — Francisco Chávez González</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* ---------- Overrides / estilos locales ---------- */
+    nav.sidebar { display: none !important; }
+
+    :root{
+      --bg: #0f0f10;
+      --panel: #141517;
+      --muted: #bdbdbd;
+      --accent: #0071C5;
+      --radius: 12px;
+      --max-width: 1200px;
+    }
+    html,body { height: 100%; margin: 0; background: var(--bg); color: #eee; font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif; -webkit-font-smoothing:antialiased; }
+    
+    .back-fixed {
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      z-index: 1200;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--text, #fff);
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.04);
+      padding: 0.45rem 0.7rem;
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
+    }
+    .back-fixed svg { width:18px; height:18px; display:block; }
+
+    main.full {
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 48px 24px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));
+      border-radius: var(--radius);
+      padding: 36px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      box-sizing: border-box;
+    }
+
+    .eyebrow { color: var(--muted); font-size: 0.95rem; margin-bottom: 6px; }
+    h1 {
+      font-size: clamp(26px, 4.2vw, 44px);
+      margin: 0 0 8px 0;
+      line-height: 1.02;
+      letter-spacing: -0.5px;
+    }
+    .meta { color: var(--muted); margin-bottom: 18px; font-size: 0.95rem; }
+
+    .cover {
+      width: 100%;
+      aspect-ratio: 16/6;
+      overflow: hidden;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      background: linear-gradient(90deg, rgba(0,113,197,0.12), rgba(0,0,0,0.06));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .cover img { width:100%; height:100%; object-fit:cover; display:block; }
+
+    .content {
+      font-size: clamp(16px, 1.6vw, 18px);
+      line-height: 1.65;
+      color: #e9e9e9;
+    }
+    .content h2 { font-size: clamp(20px, 2.6vw, 28px); margin-top: 28px; margin-bottom: 10px; }
+    .content h3 { font-size: clamp(18px, 2.2vw, 24px); margin-top: 20px; margin-bottom: 8px; }
+    .content p { margin: 0 0 14px 0; color: #dcdcdc; }
+    .content pre {
+      background: #0b0b0b;
+      padding: 14px;
+      border-radius: 8px;
+      overflow:auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      font-size: 0.92rem;
+      color: #cfeefb;
+    }
+
+    /* Figuras clicables */
+    figure {
+      margin: 18px 0;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0b0b0b;
+      display:block;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    figure:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0,113,197,0.3);
+    }
+    figure img { 
+      width:100%; 
+      height:auto; 
+      display:block; 
+      object-fit:cover;
+      transition: transform 0.2s ease;
+    }
+    figure:hover img {
+      transform: scale(1.02);
+    }
+    figcaption { font-size:0.9rem; color:var(--muted); padding:8px 10px; }
+
+    /* Indicador visual de que es clicable */
+    figure::after {
+      content: '🔍 Click para ampliar';
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+    figure {
+      position: relative;
+    }
+    figure:hover::after {
+      opacity: 1;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items:start;
+    }
+    @media (max-width:900px) { .two-col { grid-template-columns: 1fr; } }
+
+    .note {
+      border-left: 4px solid var(--accent);
+      padding: 10px 14px;
+      background: rgba(0,113,197,0.04);
+      color:#dfeffd;
+      margin: 12px 0;
+      border-radius:6px;
+    }
+
+    .doc-footer { margin-top: 28px; color:var(--muted); font-size:0.9rem; }
+
+    a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+
+    /* ========== LIGHTBOX / MODAL CON ZOOM Y PAN ========== */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox-content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .lightbox-img {
+      max-width: 90%;
+      max-height: 90vh;
+      object-fit: contain;
+      transition: transform 0.1s ease;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .lightbox-img.dragging {
+      cursor: grabbing;
+    }
+
+    /* Botón cerrar */
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      background: rgba(0,0,0,0.5);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+      z-index: 10000;
+    }
+    .lightbox-close:hover {
+      background: rgba(255,0,0,0.7);
+    }
+
+    /* Controles de zoom */
+    .zoom-controls {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      background: rgba(0,0,0,0.7);
+      padding: 10px 15px;
+      border-radius: 25px;
+      z-index: 10000;
+    }
+    .zoom-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s ease;
+    }
+    .zoom-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* Info de zoom */
+    .zoom-info {
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      color: white;
+      background: rgba(0,0,0,0.5);
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-size: 14px;
+      z-index: 10000;
+    }
+
+    /* Instrucciones */
+    .pan-hint {
+      position: absolute;
+      top: 60px;
+      left: 30px;
+      color: rgba(255,255,255,0.7);
+      background: rgba(0,0,0,0.5);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      z-index: 10000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .pan-hint.visible {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .lightbox-close {
+        top: 10px;
+        right: 10px;
+        font-size: 30px;
+        width: 40px;
+        height: 40px;
+      }
+      .zoom-controls {
+        bottom: 20px;
+        padding: 8px 12px;
+      }
+      .zoom-btn {
+        padding: 6px 12px;
+        font-size: 14px;
+      }
+      figure::after {
+        font-size: 0.7rem;
+        padding: 3px 8px;
+      }
+      .zoom-info, .pan-hint {
+        left: 10px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="back-fixed" href="reports.html" aria-label="Volver a Reportes">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Volver
+  </a>
+
+  <main class="full" role="main">
+    <div class="container" role="article" aria-labelledby="doc-title">
+      <div class="eyebrow">Reporte técnico</div>
+      <h1 id="doc-title">Teoría de Control</h1>
+      <div class="meta">Francisco Chávez — Ingeniería Electrónica · Última actualización: 30/12/2025</div>
+
+      <div class="content">
+        <h4>Introducción a las señales de Audio</h4>
+        <p>Anticipa el comportamiento futuro del error y actúa antes de que éste crezca, logrando que el sistema sea más rápido, más estable
+          y menos propenso a oscilacionesAnticipa el comportamiento futuro del error y actúa antes de que éste crezca, logrando que el sistema sea más rápido, más estable
+          y menos propenso a oscilacionesAnticipa el comportamiento futuro del error y actúa antes de que éste crezca, logrando que el sistema sea más rápido, más estable
+          y menos propenso a oscilacionesAnticipa el comportamiento futuro del error y actúa antes de que éste crezca, logrando que el sistema sea más rápido, más estable
+          y menos propenso a oscilacionesAnticipa el comportamiento futuro del error y actúa antes de que éste crezca, logrando que el sistema sea más rápido, más estable
+          y menos propenso a oscilaciones.</p>
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// <-->
+        <h5>Sistemas de Comunicación Pasabanda:AM y FM</h5>
+        <p>Anticipa el comportamiento futuro del error y actúa antes de que éste crezca, logrando que el sistema sea más rápido, más estable
+          y menos propenso a oscilacionesAnticipa el comportamiento futuro del error y actúa antes de que éste crezca, logrando que el sistema sea más rápido, más estable
+          y menos propenso a oscilacionesAnticipa el comportamiento futuro del error y actúa antes de que éste crezca, logrando que el sistema sea más rápido, más estable
+          y menos propenso a oscilacionesAnticipa el comportamiento futuro del error y actúa antes de que éste crezca, logrando que el sistema sea más rápido, más estable
+          y menos propenso a oscilaciones.</p>
+        <figure class="tech-figure" data-lightbox>
+          <img src="assets/images/c1.jpg" alt="Diagrama combinacional">
+        </figure>
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// <-->
+        <h6>Comunicaciones en Microondas y Satelites</h6>
+        <p>Anticipa el comportamiento futuro del error y actúa antes de que éste crezca, logrando que el sistema sea más rápido, más estable
+          y menos propenso a oscilacionesAnticipa el comportamiento futuro del error y actúa antes de que éste crezca, logrando que el sistema sea más rápido, más estable
+          y menos propenso a oscilacionesAnticipa el comportamiento futuro del error y actúa antes de que éste crezca, logrando que el sistema sea más rápido, más estable
+          y menos propenso a oscilacionesAnticipa el comportamiento futuro del error y actúa antes de que éste crezca, logrando que el sistema sea más rápido, más estable
+          y menos propenso a oscilaciones.</p>
+        <figure class="tech-figure" data-lightbox>
+          <img src="assets/images/c2.jpg" alt="Álgebra de Boole">
+        </figure>
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// <-->
+        <h7>Antenas</h7>
+        <p>Es más preAnticipa el comportamiento futuro del error y actúa antes de que éste crezca, logrando que el sistema sea más rápido, más estable
+          y menos propenso a oscilacionesAnticipa el comportamiento futuro del error y actúa antes de que éste crezca, logrando que el sistema sea más rápido, más estable
+          y menos propenso a oscilacionesAnticipa el comportamiento futuro del error y actúa antes de que éste crezca, logrando que el sistema sea más rápido, más estable
+          y menos propenso a oscilacionesAnticipa el comportamiento futuro del error y actúa antes de que éste crezca, logrando que el sistema sea más rápido, más estable
+          y menos propenso a oscilaciones.</p>
+        <figure class="tech-figure" data-lightbox>
+          <img src="assets/images/c3.jpg" alt="Compuertas lógicas">
+        </figure>
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// <-->
+
+        <div class="doc-footer">
+          <p>Referencias: documentación de libros de sistemas digitales y notas de laboratorio y clases.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- LIGHTBOX MODAL -->
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="closeLightbox">&times;</span>
+    <div class="zoom-info" id="zoomInfo">100%</div>
+    <div class="pan-hint" id="panHint">🖱️ Arrastra para desplazarte</div>
+    <div class="lightbox-content" id="lightboxContent">
+      <img class="lightbox-img" id="lightboxImg" src="" alt="" draggable="false">
+    </div>
+    <div class="zoom-controls">
+      <button class="zoom-btn" id="zoomOut">−</button>
+      <button class="zoom-btn" id="zoomReset">Reset</button>
+      <button class="zoom-btn" id="zoomIn">+</button>
+    </div>
+  </div>
+
+  <script>
+    // Lightbox con zoom y pan/arrastre
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxContent = document.getElementById('lightboxContent');
+    const closeLightbox = document.getElementById('closeLightbox');
+    const zoomInfo = document.getElementById('zoomInfo');
+    const panHint = document.getElementById('panHint');
+    const zoomInBtn = document.getElementById('zoomIn');
+    const zoomOutBtn = document.getElementById('zoomOut');
+    const zoomResetBtn = document.getElementById('zoomReset');
+
+    let currentZoom = 1;
+    const zoomStep = 0.25;
+    const maxZoom = 5;
+    const minZoom = 0.5;
+
+    // Variables para pan/arrastre
+    let isPanning = false;
+    let startX = 0;
+    let startY = 0;
+    let translateX = 0;
+    let translateY = 0;
+
+    // Abrir lightbox al hacer clic en cualquier figura
+    document.querySelectorAll('figure[data-lightbox] img').forEach(img => {
+      img.addEventListener('click', function() {
+        lightboxImg.src = this.src;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        currentZoom = 1;
+        translateX = 0;
+        translateY = 0;
+        updateTransform();
+      });
+    });
+
+    // Cerrar lightbox
+    function closeLightboxFunc() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = 'auto';
+      currentZoom = 1;
+      translateX = 0;
+      translateY = 0;
+      updateTransform();
+      panHint.classList.remove('visible');
+    }
+
+    closeLightbox.addEventListener('click', closeLightboxFunc);
+    
+    // Cerrar con tecla ESC
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+        closeLightboxFunc();
+      }
+    });
+
+    // Cerrar al hacer clic en el fondo (no en la imagen)
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox || e.target === lightboxContent) {
+        closeLightboxFunc();
+      }
+    });
+
+    // Función para actualizar transformación (zoom + pan)
+    function updateTransform() {
+      lightboxImg.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
+      zoomInfo.textContent = `${Math.round(currentZoom * 100)}%`;
+      
+      // Mostrar hint de arrastre cuando hay zoom
+      if (currentZoom > 1) {
+        panHint.classList.add('visible');
+      } else {
+        panHint.classList.remove('visible');
+      }
+    }
+
+    // Funciones de zoom
+    zoomInBtn.addEventListener('click', function() {
+      if (currentZoom < maxZoom) {
+        currentZoom += zoomStep;
+        updateTransform();
+      }
+    });
+
+    zoomOutBtn.addEventListener('click', function() {
+      if (currentZoom > minZoom) {
+        currentZoom -= zoomStep;
+        // Resetear pan al hacer zoom out a 1
+        if (currentZoom === 1) {
+          translateX = 0;
+          translateY = 0;
+        }
+        updateTransform();
+      }
+    });
+
+    zoomResetBtn.addEventListener('click', function() {
+      currentZoom = 1;
+      translateX = 0;
+      translateY = 0;
+      updateTransform();
+    });
+
+    // Zoom con rueda del mouse
+    lightboxImg.addEventListener('wheel', function(e) {
+      e.preventDefault();
+      const oldZoom = currentZoom;
+      
+      if (e.deltaY < 0 && currentZoom < maxZoom) {
+        currentZoom += zoomStep;
+      } else if (e.deltaY > 0 && currentZoom > minZoom) {
+        currentZoom -= zoomStep;
+      }
+      
+      // Resetear pan al volver a zoom 1
+      if (currentZoom === 1) {
+        translateX = 0;
+        translateY = 0;
+      }
+      
+      updateTransform();
+    }, { passive: false });
+
+    // ========== PAN/ARRASTRE ==========
+    // Iniciar arrastre
+    lightboxImg.addEventListener('mousedown', function(e) {
+      if (currentZoom > 1) {
+        isPanning = true;
+        startX = e.clientX - translateX;
+        startY = e.clientY - translateY;
+        lightboxImg.classList.add('dragging');
+        e.preventDefault();
+      }
+    });
+
+    // Mover mientras arrastra
+    document.addEventListener('mousemove', function(e) {
+      if (isPanning) {
+        translateX = e.clientX - startX;
+        translateY = e.clientY - startY;
+        updateTransform();
+      }
+    });
+
+    // Terminar arrastre
+    document.addEventListener('mouseup', function() {
+      if (isPanning) {
+        isPanning = false;
+        lightboxImg.classList.remove('dragging');
+      }
+    });
+
+    // Soporte táctil para móviles
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    lightboxImg.addEventListener('touchstart', function(e) {
+      if (currentZoom > 1 && e.touches.length === 1) {
+        isPanning = true;
+        touchStartX = e.touches[0].clientX - translateX;
+        touchStartY = e.touches[0].clientY - translateY;
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    lightboxImg.addEventListener('touchmove', function(e) {
+      if (isPanning && e.touches.length === 1) {
+        translateX = e.touches[0].clientX - touchStartX;
+        translateY = e.touches[0].clientY - touchStartY;
+        updateTransform();
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    lightboxImg.addEventListener('touchend', function() {
+      isPanning = false;
+    });
+
+    // Doble click para zoom 2x
+    lightboxImg.addEventListener('dblclick', function(e) {
+      if (currentZoom === 1) {
+        currentZoom = 2;
+        // Centrar zoom en la posición del click
+        const rect = lightboxImg.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        translateX = -x * 0.5;
+        translateY = -y * 0.5;
+      } else {
+        currentZoom = 1;
+        translateX = 0;
+        translateY = 0;
+      }
+      updateTransform();
+    });
+  </script>
+
+  <footer aria-hidden="true" style="text-align:center; padding:18px 0; color:#9b9b9b; font-size:0.9rem;">
+  </footer>
+</body>
+</html>
